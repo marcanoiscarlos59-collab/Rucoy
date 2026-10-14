@@ -30,11 +30,10 @@
             el.innerText = window.estaDisponible ? "🟢 SERVICIO DISPONIBLE" : "🔴 NO DISPONIBLE";
             el.className = window.estaDisponible ? "estado-badge disponible" : "estado-badge no-disponible";
         }
-        const btnWa = document.getElementById("boton-whatsapp");
-        if(btnWa) {
-            btnWa.style.pointerEvents = window.estaDisponible ? "auto" : "none";
-            btnWa.style.opacity = window.estaDisponible ? "1" : "0.5";
-        }
+        document.querySelectorAll(".btn-comprar-plan").forEach(btn => {
+            btn.style.pointerEvents = window.estaDisponible ? "auto" : "none";
+            btn.style.opacity = window.estaDisponible ? "1" : "0.5";
+        });
     });
 
     window.cambiarEstado = () => set(estadoRef, !window.estaDisponible);
@@ -258,7 +257,8 @@
         margin: 0;
         font-family: 'Outfit', sans-serif;
         color: #e2e8f0;
-        background-color: #0b0f17;
+        background-color: #080b11;
+        background-image: radial-gradient(circle at 50% 0%, rgba(255, 183, 3, 0.08) 0%, transparent 60%);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -266,475 +266,241 @@
         padding-bottom: 40px;
     }
 
-    /* ---- Navbar Superior ---- */
+    /* ---- Navbar ---- */
     .navbar {
         width: 100%;
-        max-width: 1100px;
+        max-width: 1150px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px 25px;
     }
-    .logo-container {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
+    .logo-container { display: flex; align-items: center; gap: 12px; }
     .logo-icon {
-        width: 42px;
-        height: 42px;
+        width: 42px; height: 42px;
         background: linear-gradient(135deg, #ffb703, #fb8500);
         border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         font-size: 22px;
         box-shadow: 0 0 15px rgba(251, 133, 0, 0.4);
     }
-    .logo-text {
-        display: flex;
-        flex-direction: column;
-    }
-    .logo-title {
-        font-family: 'Cinzel', serif;
-        font-size: 20px;
-        font-weight: 900;
-        color: #ffb703;
-        letter-spacing: 1px;
-    }
-    .logo-sub {
-        font-size: 10px;
-        color: #94a3b8;
-        letter-spacing: 2px;
-        font-weight: 700;
-    }
-    .nav-links {
-        display: flex;
-        gap: 25px;
-        align-items: center;
-    }
-    .nav-link {
-        color: #94a3b8;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        transition: color 0.3s;
-    }
-    .nav-link.active, .nav-link:hover {
-        color: #ffb703;
-    }
-    .btn-nav-auth {
-        background: transparent;
-        border: none;
-        color: #e2e8f0;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        padding: 8px 16px;
-    }
+    .logo-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900; color: #ffb703; }
+    .logo-sub { font-size: 10px; color: #94a3b8; letter-spacing: 2px; font-weight: 700; }
+    .nav-links { display: flex; gap: 25px; align-items: center; }
+    .nav-link { color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .nav-link.active, .nav-link:hover { color: #ffb703; }
+    .btn-nav-auth { background: transparent; border: none; color: #e2e8f0; font-size: 13px; font-weight: 600; cursor: pointer; padding: 8px 16px; }
     .btn-nav-register {
         background: linear-gradient(135deg, #ffb703, #fb8500);
-        color: #0b0f17;
-        font-weight: 800;
-        border: none;
-        padding: 8px 18px;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 13px;
+        color: #0b0f17; font-weight: 800; border: none;
+        padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px;
         box-shadow: 0 0 12px rgba(251, 133, 0, 0.3);
     }
 
-    /* Layout principal */
-    .main-container {
-        width: 100%;
-        max-width: 1100px;
-        padding: 0 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
+    /* Layout Principal */
+    .main-container { width: 100%; max-width: 1150px; padding: 0 20px; display: flex; flex-direction: column; gap: 35px; }
 
-    /* ---- Hero Banner ---- */
+    /* ---- Hero Banner con Muñequitos Animados ---- */
     .hero-banner {
-        background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(11, 15, 23, 0.95) 100%),
-                    radial-gradient(circle at 20% 30%, rgba(251, 133, 0, 0.15) 0%, transparent 60%);
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(8, 11, 17, 0.95) 100%),
+                    radial-gradient(circle at 80% 50%, rgba(251, 133, 0, 0.12) 0%, transparent 50%);
         border: 1px solid rgba(255, 183, 3, 0.25);
         border-radius: 24px;
-        padding: 45px 35px;
-        text-align: left;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 183, 3, 0.05);
+        padding: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         position: relative;
         overflow: hidden;
     }
+    .hero-content { max-width: 620px; z-index: 2; }
     .hero-tag {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: rgba(255, 183, 3, 0.1);
-        border: 1px solid rgba(255, 183, 3, 0.3);
-        color: #ffb703;
-        font-size: 12px;
-        font-weight: 700;
-        padding: 6px 14px;
-        border-radius: 20px;
-        margin-bottom: 20px;
+        display: inline-flex; align-items: center; gap: 8px;
+        background: rgba(255, 183, 3, 0.1); border: 1px solid rgba(255, 183, 3, 0.3);
+        color: #ffb703; font-size: 12px; font-weight: 700;
+        padding: 6px 14px; border-radius: 20px; margin-bottom: 18px;
     }
     .hero-title {
-        font-family: 'Cinzel', serif;
-        font-size: 42px;
-        font-weight: 900;
-        line-height: 1.15;
-        color: #ffffff;
-        margin: 0 0 15px 0;
-        letter-spacing: 1px;
+        font-family: 'Cinzel', serif; font-size: 40px; font-weight: 900;
+        line-height: 1.15; color: #ffffff; margin: 0 0 15px 0;
     }
-    .hero-title span {
-        color: #ffb703;
-        text-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
-    }
-    .hero-description {
-        color: #94a3b8;
-        font-size: 15px;
-        line-height: 1.6;
-        max-width: 650px;
-        margin-bottom: 30px;
-    }
-    .hero-actions {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-    .btn-hero-primary {
-        background: #ffb703;
-        color: #0b0f17;
-        font-weight: 800;
-        padding: 14px 28px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-size: 14px;
-        box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
-        transition: transform 0.2s;
-    }
-    .btn-hero-secondary {
-        background: rgba(255, 255, 255, 0.95);
-        color: #0b0f17;
-        font-weight: 800;
-        padding: 14px 28px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: transform 0.2s;
-    }
-    .btn-hero-primary:hover, .btn-hero-secondary:hover {
-        transform: translateY(-2px);
-    }
+    .hero-title span { color: #ffb703; text-shadow: 0 0 20px rgba(255, 183, 3, 0.4); }
+    .hero-description { color: #94a3b8; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
 
-    /* ---- Tarjetas de Beneficios (Grid 3 columnas) ---- */
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
+    /* Animación de Muñequitos Rucoy */
+    .hero-avatars {
+        display: flex; gap: 15px; align-items: center; justify-content: center; z-index: 2;
     }
-    .feature-card {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+    .avatar-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 183, 3, 0.3);
         border-radius: 16px;
-        padding: 22px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        backdrop-filter: blur(10px);
+        padding: 15px;
+        text-align: center;
+        width: 100px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        animation: float 4s ease-in-out infinite;
     }
-    .feature-icon {
-        width: 42px;
-        height: 42px;
-        background: rgba(255, 183, 3, 0.1);
-        border: 1px solid rgba(255, 183, 3, 0.2);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        color: #ffb703;
-        flex-shrink: 0;
+    .avatar-card:nth-child(2) { animation-delay: 1.3s; }
+    .avatar-card:nth-child(3) { animation-delay: 2.6s; }
+    .avatar-card:hover {
+        transform: translateY(-8px) scale(1.05);
+        border-color: #ffb703;
+        box-shadow: 0 10px 25px rgba(255, 183, 3, 0.3);
     }
-    .feature-text {
-        font-family: 'Cinzel', serif;
-        font-weight: 700;
-        font-size: 13px;
-        color: #e2e8f0;
-        letter-spacing: 0.5px;
+    .avatar-icon { font-size: 40px; margin-bottom: 5px; filter: drop-shadow(0 0 10px rgba(255,183,3,0.5)); }
+    .avatar-label { font-size: 11px; font-weight: 800; color: #ffb703; letter-spacing: 0.5px; }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
     }
 
-    /* ---- Seccion de Servicios / Calculadora ---- */
-    .caja {
-        border: 1px solid rgba(255, 183, 3, 0.25);
-        padding: 30px;
-        border-radius: 20px;
-        background: rgba(15, 23, 42, 0.75);
-        backdrop-filter: blur(16px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        width: 100%;
+    /* ---- Sección Título de Planes ---- */
+    .section-header { text-align: center; margin-top: 10px; }
+    .section-title { font-family: 'Cinzel', serif; font-size: 28px; font-weight: 900; color: #fff; margin: 0 0 10px 0; }
+    .section-subtitle { color: #94a3b8; font-size: 13px; max-width: 650px; margin: 0 auto; line-height: 1.5; }
+
+    /* Selector de Clase Interactiva */
+    .class-selector-box {
+        display: flex; justify-content: center; gap: 12px; margin-top: 20px;
     }
+    .btn-clase {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255, 183, 3, 0.25);
+        color: #94a3b8; padding: 10px 20px; border-radius: 30px;
+        font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-clase.activo, .btn-clase:hover {
+        background: #ffb703; color: #0b0f17; border-color: #ffb703;
+        box-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
+    }
+
+    /* ---- Tarjetas de Planes (Estilo la foto) ---- */
+    .plans-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        align-items: stretch;
+    }
+
+    .plan-card {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 28px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        backdrop-filter: blur(12px);
+        transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .plan-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(255, 183, 3, 0.5);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Tarjeta Destacada "MÁS SOLICITADO" */
+    .plan-card.destacado {
+        border: 2px solid #ffb703;
+        box-shadow: 0 0 30px rgba(255, 183, 3, 0.2);
+        background: linear-gradient(180deg, rgba(255, 183, 3, 0.05) 0%, rgba(15, 23, 42, 0.85) 100%);
+    }
+
+    .plan-badge {
+        position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+        background: #ffb703; color: #0b0f17; font-size: 10px; font-weight: 900;
+        padding: 4px 14px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase;
+        box-shadow: 0 0 10px rgba(255, 183, 3, 0.5);
+    }
+    .plan-tag-small {
+        background: rgba(255, 255, 255, 0.06); color: #94a3b8; font-size: 11px;
+        font-weight: 700; padding: 4px 10px; border-radius: 6px; display: inline-block; width: fit-content; margin-bottom: 12px;
+    }
+
+    .plan-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900; color: #ffb703; margin: 0 0 8px 0; }
+    .plan-desc { font-size: 12px; color: #94a3b8; min-height: 36px; line-height: 1.5; margin-bottom: 20px; }
+
+    .plan-price-box { margin-bottom: 20px; }
+    .plan-price { font-size: 32px; font-weight: 900; color: #ffffff; display: flex; align-items: baseline; gap: 8px; }
+    .plan-price-alt { font-size: 13px; color: #ffb703; font-weight: 700; }
+
+    .plan-features { list-style: none; padding: 0; margin: 0 0 25px 0; display: flex; flex-direction: column; gap: 10px; }
+    .plan-features li { font-size: 13px; color: #e2e8f0; display: flex; align-items: center; gap: 8px; }
+    .plan-features li::before { content: "✔"; color: #25D366; font-weight: 900; }
+
+    .btn-comprar-plan {
+        background: rgba(37, 211, 102, 0.15);
+        border: 1px solid #25D366;
+        color: #25D366;
+        font-weight: 800; padding: 12px; border-radius: 12px;
+        text-align: center; text-decoration: none; display: flex;
+        align-items: center; justify-content: center; gap: 8px; font-size: 13px;
+        transition: all 0.3s; cursor: pointer;
+    }
+    .btn-comprar-plan:hover {
+        background: #25D366; color: #0b0f17; box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+    }
+
+    /* ---- Calculadora Personalizada de Horas ---- */
+    .caja-calculadora {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 183, 3, 0.25);
+        padding: 28px; border-radius: 20px; margin-top: 10px;
+    }
+    .caja-calculadora h2 { font-family: 'Cinzel', serif; color: #ffb703; font-size: 20px; margin: 0 0 10px 0; }
 
     .estado-badge {
-        text-align: center;
-        margin-bottom: 20px;
-        font-weight: 700;
-        padding: 10px;
-        border-radius: 12px;
-        font-size: 13px;
-        letter-spacing: 1px;
+        text-align: center; margin-bottom: 20px; font-weight: 700;
+        padding: 10px; border-radius: 12px; font-size: 13px; letter-spacing: 1px;
     }
-    .estado-badge.disponible {
-        background: rgba(0, 255, 128, 0.1);
-        color: #00ff80;
-        border: 1px solid rgba(0, 255, 128, 0.3);
-    }
-    .estado-badge.no-disponible {
-        background: rgba(255, 60, 60, 0.1);
-        color: #ff4d4d;
-        border: 1px solid rgba(255, 60, 60, 0.3);
-    }
+    .estado-badge.disponible { background: rgba(0, 255, 128, 0.1); color: #00ff80; border: 1px solid rgba(0, 255, 128, 0.3); }
+    .estado-badge.no-disponible { background: rgba(255, 60, 60, 0.1); color: #ff4d4d; border: 1px solid rgba(255, 60, 60, 0.3); }
 
-    #vista-seguimiento { display: none; text-align: center; }
-    
-    h1 {
-        color: #ffb703;
-        text-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
-        font-size: 24px;
-        font-weight: 900;
-        margin: 0 0 5px 0;
-        text-align: center;
-        letter-spacing: 0.5px;
-        cursor: default;
-    }
-
-    .subtitle {
-        color: #ffd700;
-        font-weight: 600;
-        margin-bottom: 20px;
-        font-size: 12px;
-        text-align: center;
-        letter-spacing: 2px;
-    }
-
-    .horario-box {
-        background: rgba(255, 183, 3, 0.06);
-        border: 1px solid rgba(255, 183, 3, 0.2);
-        border-radius: 12px;
-        padding: 10px;
-        margin-bottom: 20px;
-        text-align: center;
-        font-size: 12px;
-        color: #ffb703;
-    }
-
-    label {
-        display: block;
-        margin: 14px 0 6px 0;
-        font-size: 12px;
-        font-weight: 600;
-        color: #94a3b8;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-
+    label { display: block; margin: 14px 0 6px 0; font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
     input, select {
-        padding: 12px 14px;
-        width: 100%;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 183, 3, 0.2);
-        background: rgba(11, 15, 23, 0.85);
-        color: #fff;
-        margin-bottom: 4px;
-        cursor: pointer;
-        font-family: 'Outfit', sans-serif;
-        font-size: 14px;
-        transition: all 0.3s ease;
+        padding: 12px 14px; width: 100%; border-radius: 10px;
+        border: 1px solid rgba(255, 183, 3, 0.2); background: rgba(8, 11, 17, 0.85);
+        color: #fff; font-family: 'Outfit', sans-serif; font-size: 14px;
     }
-    input:focus, select:focus {
-        outline: none;
-        border-color: #ffb703;
-        box-shadow: 0 0 12px rgba(255, 183, 3, 0.3);
-        background: rgba(15, 23, 42, 0.95);
-    }
-
-    .resultado-caja {
-        background: rgba(255, 183, 3, 0.08);
-        border: 1px solid rgba(255, 183, 3, 0.3);
-        padding: 16px;
-        margin-top: 20px;
-        border-radius: 12px;
-        text-align: center;
-    }
-
-    .total-oro {
-        color: #ffd700;
-        font-size: 24px;
-        font-weight: 900;
-        text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
-    }
-
-    .btn-wa {
-        background: linear-gradient(135deg, #25D366, #1ebe5d);
-        color: white;
-        padding: 14px;
-        text-decoration: none;
-        font-weight: 700;
-        border-radius: 12px;
-        display: block;
-        text-align: center;
-        margin-top: 20px;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
-        transition: all 0.3s ease;
-    }
-    .btn-wa:hover {
-        transform: translateY(-2px);
-    }
-
-    .footer {
-        margin-top: 30px;
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 12px;
-        text-align: center;
-        line-height: 1.6;
-    }
-
-    #panel-admin {
-        display: none;
-        margin-top: 25px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        padding-top: 20px;
-    }
-
-    .lista-item {
-        padding: 10px;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 8px;
-        margin-bottom: 8px;
-        font-size: 12px;
-        text-align: left;
-    }
+    input:focus, select:focus { outline: none; border-color: #ffb703; box-shadow: 0 0 12px rgba(255, 183, 3, 0.3); }
 
     .tabla-rangos {
-        width: 100%;
-        font-size: 11px;
-        margin-top: 18px;
-        border-collapse: separate;
-        border-spacing: 0;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 10px;
-        overflow: hidden;
-        color: #ccc;
+        width: 100%; font-size: 11px; margin-top: 18px; border-collapse: separate; border-spacing: 0;
+        border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; color: #ccc;
     }
-    .tabla-rangos th, .tabla-rangos td {
-        padding: 8px;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        border-right: 1px solid rgba(255,255,255,0.08);
-        text-align: center;
-    }
-    .tabla-rangos th { background: rgba(255, 183, 3, 0.1); color: #ffb703; font-weight: 700; }
-    .tabla-rangos tr:last-child td { border-bottom: none; }
-    .tabla-rangos td:last-child, .tabla-rangos th:last-child { border-right: none; }
+    .tabla-rangos th, .tabla-rangos td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: center; }
+    .tabla-rangos th { background: rgba(255, 183, 3, 0.1); color: #ffb703; }
+
+    #panel-admin { display: none; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+    .lista-item { padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 8px; font-size: 12px; }
 
     /* ---- Testimonios ---- */
-    .caja-referencias { margin-top: 10px; }
-    .caja-referencias h1 { font-size: 18px; }
-    .caja-referencias .subtitle { font-size: 11px; margin-bottom: 15px; }
-    
-    .btn-toggle-ref {
-        width: 100%;
-        background: rgba(255, 183, 3, 0.05);
-        border: 1px solid rgba(255, 183, 3, 0.3);
-        color: #ffb703;
-        padding: 12px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .btn-toggle-ref:hover {
-        background: rgba(255, 183, 3, 0.12);
-    }
-    
+    .caja-referencias { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 183, 3, 0.25); border-radius: 20px; padding: 25px; }
+    .btn-toggle-ref { width: 100%; background: rgba(255, 183, 3, 0.05); border: 1px solid rgba(255, 183, 3, 0.3); color: #ffb703; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; }
     #contenedor-ref-scroll { display: none; margin-top: 16px; }
-    
     .filtros-ref { display: flex; gap: 6px; margin-bottom: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn-filtro {
-        background: rgba(255, 183, 3, 0.05);
-        border: 1px solid rgba(255, 183, 3, 0.25);
-        color: #ffb703;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 11px;
-        font-weight: 600;
-        cursor: pointer;
-    }
-    .btn-filtro.activo {
-        background: #ffb703;
-        color: #0b0f17;
-        font-weight: 800;
-    }
+    .btn-filtro { background: rgba(255, 183, 3, 0.05); border: 1px solid rgba(255, 183, 3, 0.25); color: #ffb703; padding: 6px 14px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+    .btn-filtro.activo { background: #ffb703; color: #0b0f17; font-weight: 800; }
+    .grid-referencias { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; max-height: 400px; overflow-y: auto; }
+    .tarjeta-ref { background: rgba(255, 183, 3, 0.04); border: 1px solid rgba(255, 183, 3, 0.2); border-radius: 12px; padding: 14px; text-align: center; }
 
-    .grid-referencias {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 12px;
-        max-height: 400px;
-        overflow-y: auto;
-    }
-    .grid-referencias::-webkit-scrollbar { width: 6px; }
-    .grid-referencias::-webkit-scrollbar-thumb { background: rgba(255, 183, 3, 0.3); border-radius: 6px; }
+    .footer { margin-top: 30px; color: rgba(255, 255, 255, 0.4); font-size: 12px; text-align: center; line-height: 1.6; }
 
-    .tarjeta-ref {
-        background: rgba(255, 183, 3, 0.04);
-        border: 1px solid rgba(255, 183, 3, 0.2);
-        border-radius: 12px;
-        padding: 14px 12px;
-        text-align: center;
-    }
-    .tarjeta-ref-tipo { font-size: 10px; color: #ffd700; font-weight: 700; margin-bottom: 6px; }
-    .tarjeta-ref-nombre { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #fff; }
-    .tarjeta-ref-progreso { font-size: 11px; color: #ccc; line-height: 1.6; }
-    .tarjeta-ref-progreso .antes { color: #ff6b6b; display: block; }
-    .tarjeta-ref-progreso .despues { color: #4caf50; font-weight: 700; display: block; }
-    .tarjeta-ref-fecha { font-size: 9px; color: #777; margin-top: 8px; }
-    
-    #sin-referencias { display: none; text-align: center; color: #888; padding: 20px 5px; font-size: 12px; }
-    
-    .form-admin-ref { border-top: 1px dashed rgba(255,255,255,0.15); margin-top: 20px; padding-top: 15px; }
-    .form-admin-ref h3 { font-size: 13px; color: #ffb703; margin: 0 0 10px 0; text-align: left; }
-
-    .btn-admin-accion {
-        border: none;
-        border-radius: 6px;
-        padding: 5px 12px;
-        cursor: pointer;
-        font-size: 11px;
-        font-weight: 700;
-    }
-    .btn-admin-accion.editar { background: #ffb703; color: #0b0f17; }
-    .btn-admin-accion.borrar { background: #ff3333; color: white; margin-left: 6px; }
-    .btn-admin-accion.aprobar { background: #25D366; color: white; }
-    .btn-admin-accion.rechazar { background: #ff3333; color: white; margin-left: 6px; }
-
-    @media (max-width: 768px) {
+    @media (max-width: 850px) {
+        .hero-banner { flex-direction: column; text-align: center; gap: 25px; }
+        .hero-title { font-size: 30px; }
         .nav-links { display: none; }
-        .hero-title { font-size: 28px; }
-        .hero-banner { padding: 30px 20px; }
     }
 </style>
 </head>
 <body>
 
-    <!-- Navbar Superior -->
+    <!-- Navbar -->
     <header class="navbar">
         <div class="logo-container">
             <div class="logo-icon">🛡️</div>
@@ -745,48 +511,162 @@
         </div>
         <nav class="nav-links">
             <a href="#inicio" class="nav-link active">Inicio</a>
-            <a href="#servicios" class="nav-link">Servicios & Precios</a>
+            <a href="#planes" class="nav-link">Servicios & Precios</a>
+            <a href="#calculadora" class="nav-link">Calculadora</a>
         </nav>
         <div>
             <button class="btn-nav-auth" onclick="verificarAdmin()">Iniciar Sesión</button>
-            <button class="btn-nav-register" onclick="document.getElementById('servicios').scrollIntoView();">Registrarse</button>
+            <button class="btn-nav-register" onclick="document.getElementById('planes').scrollIntoView();">Registrarse</button>
         </div>
     </header>
 
     <div class="main-container">
         
-        <!-- Hero Banner Principal -->
+        <!-- Hero Banner con Muñequitos Animados -->
         <section class="hero-banner" id="inicio">
-            <div class="hero-tag">👑 Servicio Profesional & Share Oficial Rucoy Online</div>
-            <h1 class="hero-title">LLEVA TU<br>PERSONAJE AL<br><span>MÁXIMO NIVEL</span></h1>
-            <p class="hero-description">
-                ¿Buscas el mejor share, farmeo de oro o subida de stats sin riesgos?<br>
-                Plataforma 100% verificada con registro en la nube local y botón de compra directa a WhatsApp para atención inmediata.
+            <div class="hero-content">
+                <div class="hero-tag">👑 Servicio Profesional & Share Oficial Rucoy Online</div>
+                <h1 class="hero-title">LLEVA TU<br>PERSONAJE AL<br><span>MÁXIMO NIVEL</span></h1>
+                <p class="hero-description">
+                    ¿Buscas el mejor share, farmeo de oro o subida de stats sin riesgos?<br>
+                    Plataforma 100% verificada con registro en la nube local y botón de compra directa a WhatsApp para atención inmediata.
+                </p>
+            </div>
+            
+            <!-- Muñequitos Rucoy Animados -->
+            <div class="hero-avatars">
+                <div class="avatar-card" onclick="seleccionarClase('Melee')">
+                    <div class="avatar-icon">⚔️</div>
+                    <div class="avatar-label">MELEE</div>
+                </div>
+                <div class="avatar-card" onclick="seleccionarClase('Distance')">
+                    <div class="avatar-icon">🏹</div>
+                    <div class="avatar-label">DISTANCE</div>
+                </div>
+                <div class="avatar-card" onclick="seleccionarClase('Magic')">
+                    <div class="avatar-icon">✨</div>
+                    <div class="avatar-label">MAGIC</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Encabezado de Servicios -->
+        <section class="section-header" id="planes">
+            <h2 class="section-title">PLANES & PAQUETES DESTACADOS</h2>
+            <p class="section-subtitle">
+                Elige el plan que necesites. Al hacer clic en comprar, se registrará en tu historial de la nube y se enviará la orden directo a nuestro WhatsApp.
             </p>
-            <div class="hero-actions">
-                <a href="#servicios" class="btn-hero-primary">⚡ Ver Servicios y Precios</a>
-                <a href="#" id="hero-wa-btn" class="btn-hero-secondary" onclick="document.getElementById('boton-whatsapp').click();">💬 Chat Directo WhatsApp</a>
+            
+            <!-- Selector de Clase -->
+            <div class="class-selector-box">
+                <button class="btn-clase activo" id="btn-c-Melee" onclick="seleccionarClase('Melee')">⚔️ Melee</button>
+                <button class="btn-clase" id="btn-c-Distance" onclick="seleccionarClase('Distance')">🏹 Distancia</button>
+                <button class="btn-clase" id="btn-c-Magic" onclick="seleccionarClase('Magic')">✨ Magia</button>
             </div>
         </section>
 
-        <!-- Tarjetas de Beneficios -->
-        <section class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
-                <div class="feature-text">SHARE 100% SEGURO</div>
+        <!-- Tarjetas de Planes (Estilo Cuadrícula) -->
+        <section class="plans-grid">
+            
+            <!-- Plan 1: Skill Normal -->
+            <div class="plan-card">
+                <div>
+                    <span class="plan-tag-small">Share Diario</span>
+                    <h3 class="plan-title">SKILL NORMAL</h3>
+                    <p class="plan-desc">Entrenamiento progresivo en zonas óptimas para mantener la constancia de tus stats.</p>
+                    <div class="plan-price-box">
+                        <div class="plan-price">300k <span class="plan-price-alt">/ hora</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Entrenamiento seguro sin riesgo</li>
+                        <li>Configuración de skill óptimo</li>
+                        <li>Registro automático en nube</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-comprar-plan" onclick="comprarPlan('Skill Normal', 300, 1)">💬 Comprar por WhatsApp</a>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">💬</div>
-                <div class="feature-text">CHECKOUT A WHATSAPP</div>
+
+            <!-- Plan 2: Pack Maraton (DESTACADO) -->
+            <div class="plan-card destacado">
+                <div class="plan-badge">🔥 MÁS SOLICITADO</div>
+                <div>
+                    <span class="plan-tag-small">Pack Promocional</span>
+                    <h3 class="plan-title">PACK MARATÓN (5H)</h3>
+                    <p class="plan-desc">Para jugadores exigentes que buscan el máximo rendimiento de horas seguidas.</p>
+                    <div class="plan-price-box">
+                        <div class="plan-price">1.4 KK <span class="plan-price-alt">o $1.4M Gold</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>5 Horas de share intenso</li>
+                        <li>Farmeo en zonas medias/altas</li>
+                        <li>Reporte de avance de stats</li>
+                        <li>Atención prioritaria</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-comprar-plan" onclick="comprarPlan('Pack Maraton (5h)', 1400, 5)">💬 Comprar por WhatsApp</a>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">☁️</div>
-                <div class="feature-text">BASE DE DATOS EN NUBE LOCAL</div>
+
+            <!-- Plan 3: Power Training -->
+            <div class="plan-card">
+                <div>
+                    <span class="plan-tag-small">Ptrain Pro</span>
+                    <h3 class="plan-title">POWER TRAINING</h3>
+                    <p class="plan-desc">Aumento acelerado de nivel de skill con supervisión continua de tu personaje.</p>
+                    <div class="plan-price-box">
+                        <div class="plan-price">360k <span class="plan-price-alt">/ hora</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Subida veloz de stats</li>
+                        <li>Uso eficiente de estamina</li>
+                        <li>Registro de historial local</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-comprar-plan" onclick="comprarPlan('Power Training', 360, 1)">💬 Comprar por WhatsApp</a>
             </div>
+
+            <!-- Plan 4: Subida de Nivel -->
+            <div class="plan-card">
+                <div>
+                    <span class="plan-tag-small">Farmeo & Nivel</span>
+                    <h3 class="plan-title">SUBIDA DE NIVEL</h3>
+                    <p class="plan-desc">Farmeo de experiencia e incremento de nivel base con profesionales en Rucoy.</p>
+                    <div class="plan-price-box">
+                        <div class="plan-price">600k <span class="plan-price-alt">/ hora</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Obtención de exp rápida</li>
+                        <li>Entrega segura in-game</li>
+                        <li>Loot y oro conservado</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-comprar-plan" onclick="comprarPlan('Subida de Nivel', 600, 1)">💬 Comprar por WhatsApp</a>
+            </div>
+
+            <!-- Plan 5: Pack Ptrain Pro -->
+            <div class="plan-card">
+                <div>
+                    <span class="plan-tag-small">Pack VIP</span>
+                    <h3 class="plan-title">PACK PTRAIN PRO (5H)</h3>
+                    <p class="plan-desc">Sesión intensiva de 5 horas de Power Training completo para subir stats de golpe.</p>
+                    <div class="plan-price-box">
+                        <div class="plan-price">1.7 KK <span class="plan-price-alt">o $1.7M Gold</span></div>
+                    </div>
+                    <ul class="plan-features">
+                        <li>5 Horas de Power Training</li>
+                        <li>Zona VIP exclusiva</li>
+                        <li>Atención personalizada</li>
+                    </ul>
+                </div>
+                <a href="#" class="btn-comprar-plan" onclick="comprarPlan('Pack Ptrain Pro (5h)', 1700, 5)">💬 Comprar por WhatsApp</a>
+            </div>
+
         </section>
 
-        <!-- Calculadora / Servicios -->
-        <section class="caja" id="servicios">
+        <!-- Calculadora Personalizada de Horas -->
+        <section class="caja-calculadora" id="calculadora">
+            <h2>⚙️ CALCULADORA DE SERVICIOS POR HORA</h2>
+            <p style="font-size:12px; color:#94a3b8; margin-bottom:20px;">Calcula el costo exacto ajustando el personaje, horas requeridas y profesión.</p>
+            
             <div id="vista-seguimiento">
                 <h1 id="cliente-nombre">Seguimiento</h1>
                 <div id="rango-cliente" style="font-size: 18px; margin: 8px 0;"></div>
@@ -796,8 +676,6 @@
             <div id="vista-formulario">
                 <div id="estado-servicio" class="estado-badge">Cargando...</div>
                 <h1 ondblclick="verificarAdmin()">🛡️ SAFEGAMING SERVICE 🛡️ <span id="badge-pendientes" style="display:none; background:#ff3333; color:white; font-size:11px; border-radius:10px; padding:2px 8px; vertical-align:middle;"></span></h1>
-                <div class="subtitle">RUCOY ONLINE: PROFESIONAL</div>
-                <div class="horario-box">🕒 <b>HORARIO:</b> 9:00 AM - 7:00 PM</div>
                 
                 <label>Nombre del Personaje:</label>
                 <input type="text" id="personaje" placeholder="Ej: RucoyPro" oninput="calcularTotal()">
@@ -820,13 +698,13 @@
 
                 <table class="tabla-rangos">
                     <tr><th>Rango</th><th>Horas</th></tr>
-                    <tr><td style="color:#c0c0c0; font-weight:600;">⚪ PLATA</td><td>20+</td></tr>
-                    <tr><td style="color:#ffd700; font-weight:600;">🟡 ORO</td><td>30+</td></tr>
-                    <tr><td style="color:#00f2ff; font-weight:600;">💎 DIAMANTE</td><td>50+</td></tr>
-                    <tr><td style="color:#00f2ff; font-weight:600;">💎 PREMIUM</td><td>500+</td></tr>
-                    <tr><td style="color:#FFD700; font-weight:600;">👑 VIP</td><td>1000+</td></tr>
-                    <tr><td style="color:#ff8c00; font-weight:600;">🔥 LEYENDA I</td><td>1500+</td></tr>
-                    <tr><td style="color:#ff4500; font-weight:600;">⚡ LEYENDA II</td><td>2000+</td></tr>
+                    <tr><td style="color:#c0c0c0;">⚪ PLATA</td><td>20+</td></tr>
+                    <tr><td style="color:#ffd700;">🟡 ORO</td><td>30+</td></tr>
+                    <tr><td style="color:#00f2ff;">💎 DIAMANTE</td><td>50+</td></tr>
+                    <tr><td style="color:#00f2ff;">💎 PREMIUM</td><td>500+</td></tr>
+                    <tr><td style="color:#FFD700;">👑 VIP</td><td>1000+</td></tr>
+                    <tr><td style="color:#ff8c00;">🔥 LEYENDA I</td><td>1500+</td></tr>
+                    <tr><td style="color:#ff4500;">⚡ LEYENDA II</td><td>2000+</td></tr>
                 </table>
 
                 <label>Servicio:</label>
@@ -841,11 +719,11 @@
                 <label>Cantidad de Horas:</label>
                 <input type="number" id="horas" value="1" min="1" oninput="calcularTotal()">
                 
-                <div class="resultado-caja">
-                    <div class="total-oro" id="precio-final">300k gold</div>
+                <div style="background:rgba(255,183,3,0.08); border:1px solid rgba(255,183,3,0.3); padding:15px; border-radius:12px; margin-top:15px; text-align:center;">
+                    <div style="color:#ffd700; font-size:24px; font-weight:900;" id="precio-final">300k gold</div>
                 </div>
 
-                <a href="#" id="boton-whatsapp" class="btn-wa" onclick="reproducirYRedirigir()">💬 APARTAR CUPO POR WHATSAPP</a>
+                <a href="#" id="boton-whatsapp" class="btn-comprar-plan" style="margin-top:15px; padding:14px; font-size:14px;" onclick="reproducirYRedirigir()">💬 APARTAR CUPO POR WHATSAPP</a>
                 
                 <div id="panel-admin">
                     <button onclick="cambiarEstado()" style="width:100%; padding:12px; background: #ff3333; color: white; font-weight:700; border-radius:10px; border:none; cursor:pointer; margin-bottom:12px;">CAMBIAR ESTADO</button>
@@ -882,10 +760,10 @@
             </div>
         </section>
 
-        <!-- Sección Testimonios -->
-        <section class="caja caja-referencias">
-            <h1>📊 TESTIMONIOS DE CLIENTES</h1>
-            <div class="subtitle">SKILL • NIVEL • CUENTAS</div>
+        <!-- Testimonios -->
+        <section class="caja-referencias">
+            <h1 style="font-family:'Cinzel', serif; color:#ffb703; text-align:center;">📊 TESTIMONIOS DE CLIENTES</h1>
+            <div style="color:#ffd700; font-size:11px; text-align:center; margin-bottom:15px; font-weight:700;">SKILL • NIVEL • CUENTAS</div>
             <button class="btn-toggle-ref" id="btn-toggle-ref" onclick="toggleReferencias()">👁️ VER TESTIMONIOS (<span id="contador-ref">0</span>)</button>
             <div id="contenedor-ref-scroll">
                 <div class="filtros-ref">
@@ -900,7 +778,7 @@
 
             <button class="btn-toggle-ref" id="btn-toggle-form-publico" style="margin-top:12px;" onclick="toggleFormularioPublico()">✍️ DEJAR MI TESTIMONIO</button>
             <div id="form-ref-publico" style="display:none; margin-top:14px; text-align:left;">
-                <p style="font-size:11px; color:#aaa; margin:0 0 10px 0; line-height:1.4;">Cuéntanos tu experiencia. Se revisa antes de publicarse, así que no aparece de inmediato.</p>
+                <p style="font-size:11px; color:#aaa; margin:0 0 10px 0;">Cuéntanos tu experiencia. Se revisa antes de publicarse, así que no aparece de inmediato.</p>
                 <label style="margin-top:0;">Tipo:</label>
                 <select id="pub-ref-tipo">
                     <option value="Skill">⚔️ Skill</option>
@@ -923,11 +801,34 @@
     <audio id="sonido-level" src="universfield-level-up-191997.mp3" preload="auto"></audio>
 
     <footer class="footer">
-        Servicio profesional de Skilleo y Share<br>Atención: +58 412-3576579<br>
-        <span style="opacity:0.6;">build: rucoy-share-elite-v1</span>
+        © 2026 Rucoy Share Portal. Todos los derechos reservados.<br>Atención Oficial WhatsApp: +58 412-3576579
     </footer>
 
     <script>
+        let claseSeleccionada = 'Melee';
+
+        function seleccionarClase(clase) {
+            claseSeleccionada = clase;
+            document.querySelectorAll('.btn-clase').forEach(b => b.classList.remove('activo'));
+            let btn = document.getElementById('btn-c-' + clase);
+            if(btn) btn.classList.add('activo');
+            document.getElementById('clase').value = clase;
+            calcularTotal();
+        }
+
+        function comprarPlan(nombrePlan, precioBase, horasDefecto) {
+            let nombre = document.getElementById("personaje").value || "TuPersonaje";
+            let msg = `Hola Safegaming! Quiero solicitar la orden directa del plan: ${nombrePlan} (${claseSeleccionada}) para mi personaje: ${nombre}.`;
+            if(nombrePlan) window.registrarCliente(nombre, horasDefecto);
+            
+            const audio = document.getElementById('sonido-level');
+            if(audio) audio.play().catch(()=>{});
+            
+            setTimeout(() => {
+                window.open("https://wa.me/584123576579?text=" + encodeURIComponent(msg), '_blank');
+            }, 400);
+        }
+
         function calcularTotal() {
             let p = parseInt(document.getElementById("servicio").value);
             let h = parseInt(document.getElementById("horas").value) || 1;
@@ -943,9 +844,7 @@
 
         document.addEventListener('click', function unlockAudio() {
             const audio = document.getElementById('sonido-level');
-            if(audio) {
-                audio.play().then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {});
-            }
+            if(audio) { audio.play().then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {}); }
             document.removeEventListener('click', unlockAudio);
         }, { once: true });
 
@@ -1014,7 +913,8 @@
             document.getElementById("vista-formulario").style.display = "none";
             document.querySelector(".caja-referencias").style.display = "none";
             document.querySelector(".hero-banner").style.display = "none";
-            document.querySelector(".features-grid").style.display = "none";
+            document.querySelector(".section-header").style.display = "none";
+            document.querySelector(".plans-grid").style.display = "none";
             document.getElementById("vista-seguimiento").style.display = "block";
             document.getElementById("cliente-nombre").innerText = "Cliente: " + decodeURIComponent(params.get('n'));
             let r = params.get('r') || "Novato", c = params.get('c') || "#aaa", i = params.get('i') || "👶";
