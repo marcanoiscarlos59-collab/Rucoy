@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Safegaming Service - Rucoy Online</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<title>RUCOY SHARE - Elite Services & Boosting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getDatabase, ref, onValue, set, push, update, get, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -26,10 +26,15 @@
     onValue(estadoRef, (s) => {
         window.estaDisponible = s.val();
         let el = document.getElementById("estado-servicio");
-        el.innerText = window.estaDisponible ? "🟢 SERVICIO DISPONIBLE" : "🔴 NO DISPONIBLE";
-        el.className = window.estaDisponible ? "estado-badge disponible" : "estado-badge no-disponible";
-        document.getElementById("boton-whatsapp").style.pointerEvents = window.estaDisponible ? "auto" : "none";
-        document.getElementById("boton-whatsapp").style.opacity = window.estaDisponible ? "1" : "0.5";
+        if(el) {
+            el.innerText = window.estaDisponible ? "🟢 SERVICIO DISPONIBLE" : "🔴 NO DISPONIBLE";
+            el.className = window.estaDisponible ? "estado-badge disponible" : "estado-badge no-disponible";
+        }
+        const btnWa = document.getElementById("boton-whatsapp");
+        if(btnWa) {
+            btnWa.style.pointerEvents = window.estaDisponible ? "auto" : "none";
+            btnWa.style.opacity = window.estaDisponible ? "1" : "0.5";
+        }
     });
 
     window.cambiarEstado = () => set(estadoRef, !window.estaDisponible);
@@ -186,7 +191,7 @@
         if (!cont) return;
         cont.innerHTML = testimoniosCache.slice().reverse().map(t => `
             <div class="lista-item">
-                <div style="margin-bottom:4px;">${iconoTipo(t.tipo)} <b>${t.tipo}</b> — <span style="color:#00f2ff">${t.nombre}</span>: ${t.antes} → ${t.despues}</div>
+                <div style="margin-bottom:4px;">${iconoTipo(t.tipo)} <b>${t.tipo}</b> — <span style="color:#ffd700">${t.nombre}</span>: ${t.antes} → ${t.despues}</div>
                 <div>
                     <button onclick="editarTestimonio('${t.key}')" class="btn-admin-accion editar">✏️ Editar</button>
                     <button onclick="eliminarTestimonio('${t.key}')" class="btn-admin-accion borrar">🗑️ Borrar</button>
@@ -248,43 +253,231 @@
 
 <style>
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
         margin: 0;
         font-family: 'Outfit', sans-serif;
-        color: #fff;
+        color: #e2e8f0;
+        background-color: #0b0f17;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         align-items: center;
-        padding: 30px 15px;
-        background-color: #030008;
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        transition: background-image 1.2s ease-in-out;
+        padding-bottom: 40px;
     }
 
-    /* Fondo oscuro con capa de gradiente elegante sobre las imágenes */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: radial-gradient(circle at center, rgba(3,0,8,0.75) 0%, rgba(3,0,8,0.92) 100%);
-        z-index: -1;
+    /* ---- Navbar Superior ---- */
+    .navbar {
+        width: 100%;
+        max-width: 1100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;
+    }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .logo-icon {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(135deg, #ffb703, #fb8500);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        box-shadow: 0 0 15px rgba(251, 133, 0, 0.4);
+    }
+    .logo-text {
+        display: flex;
+        flex-direction: column;
+    }
+    .logo-title {
+        font-family: 'Cinzel', serif;
+        font-size: 20px;
+        font-weight: 900;
+        color: #ffb703;
+        letter-spacing: 1px;
+    }
+    .logo-sub {
+        font-size: 10px;
+        color: #94a3b8;
+        letter-spacing: 2px;
+        font-weight: 700;
+    }
+    .nav-links {
+        display: flex;
+        gap: 25px;
+        align-items: center;
+    }
+    .nav-link {
+        color: #94a3b8;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+    .nav-link.active, .nav-link:hover {
+        color: #ffb703;
+    }
+    .btn-nav-auth {
+        background: transparent;
+        border: none;
+        color: #e2e8f0;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 8px 16px;
+    }
+    .btn-nav-register {
+        background: linear-gradient(135deg, #ffb703, #fb8500);
+        color: #0b0f17;
+        font-weight: 800;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 13px;
+        box-shadow: 0 0 12px rgba(251, 133, 0, 0.3);
     }
 
+    /* Layout principal */
+    .main-container {
+        width: 100%;
+        max-width: 1100px;
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    /* ---- Hero Banner ---- */
+    .hero-banner {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(11, 15, 23, 0.95) 100%),
+                    radial-gradient(circle at 20% 30%, rgba(251, 133, 0, 0.15) 0%, transparent 60%);
+        border: 1px solid rgba(255, 183, 3, 0.25);
+        border-radius: 24px;
+        padding: 45px 35px;
+        text-align: left;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 30px rgba(255, 183, 3, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 183, 3, 0.1);
+        border: 1px solid rgba(255, 183, 3, 0.3);
+        color: #ffb703;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+    }
+    .hero-title {
+        font-family: 'Cinzel', serif;
+        font-size: 42px;
+        font-weight: 900;
+        line-height: 1.15;
+        color: #ffffff;
+        margin: 0 0 15px 0;
+        letter-spacing: 1px;
+    }
+    .hero-title span {
+        color: #ffb703;
+        text-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
+    }
+    .hero-description {
+        color: #94a3b8;
+        font-size: 15px;
+        line-height: 1.6;
+        max-width: 650px;
+        margin-bottom: 30px;
+    }
+    .hero-actions {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .btn-hero-primary {
+        background: #ffb703;
+        color: #0b0f17;
+        font-weight: 800;
+        padding: 14px 28px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 14px;
+        box-shadow: 0 0 20px rgba(255, 183, 3, 0.4);
+        transition: transform 0.2s;
+    }
+    .btn-hero-secondary {
+        background: rgba(255, 255, 255, 0.95);
+        color: #0b0f17;
+        font-weight: 800;
+        padding: 14px 28px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.2s;
+    }
+    .btn-hero-primary:hover, .btn-hero-secondary:hover {
+        transform: translateY(-2px);
+    }
+
+    /* ---- Tarjetas de Beneficios (Grid 3 columnas) ---- */
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+    .feature-card {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 22px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        backdrop-filter: blur(10px);
+    }
+    .feature-icon {
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 183, 3, 0.1);
+        border: 1px solid rgba(255, 183, 3, 0.2);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #ffb703;
+        flex-shrink: 0;
+    }
+    .feature-text {
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        font-size: 13px;
+        color: #e2e8f0;
+        letter-spacing: 0.5px;
+    }
+
+    /* ---- Seccion de Servicios / Calculadora ---- */
     .caja {
-        border: 1px solid rgba(0, 242, 255, 0.3);
+        border: 1px solid rgba(255, 183, 3, 0.25);
         padding: 30px;
         border-radius: 20px;
-        background: rgba(10, 6, 24, 0.75);
+        background: rgba(15, 23, 42, 0.75);
         backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 242, 255, 0.15);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         width: 100%;
-        max-width: 480px;
-        transition: transform 0.3s ease;
     }
 
     .estado-badge {
@@ -295,24 +488,23 @@
         border-radius: 12px;
         font-size: 13px;
         letter-spacing: 1px;
-        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
     }
     .estado-badge.disponible {
-        background: rgba(0, 255, 128, 0.12);
+        background: rgba(0, 255, 128, 0.1);
         color: #00ff80;
-        border: 1px solid rgba(0, 255, 128, 0.4);
+        border: 1px solid rgba(0, 255, 128, 0.3);
     }
     .estado-badge.no-disponible {
-        background: rgba(255, 60, 60, 0.12);
+        background: rgba(255, 60, 60, 0.1);
         color: #ff4d4d;
-        border: 1px solid rgba(255, 60, 60, 0.4);
+        border: 1px solid rgba(255, 60, 60, 0.3);
     }
 
     #vista-seguimiento { display: none; text-align: center; }
     
     h1 {
-        color: #00f2ff;
-        text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+        color: #ffb703;
+        text-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
         font-size: 24px;
         font-weight: 900;
         margin: 0 0 5px 0;
@@ -328,19 +520,17 @@
         font-size: 12px;
         text-align: center;
         letter-spacing: 2px;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
     }
 
     .horario-box {
-        background: rgba(255, 215, 0, 0.06);
-        border: 1px solid rgba(255, 215, 0, 0.25);
+        background: rgba(255, 183, 3, 0.06);
+        border: 1px solid rgba(255, 183, 3, 0.2);
         border-radius: 12px;
         padding: 10px;
         margin-bottom: 20px;
         text-align: center;
         font-size: 12px;
-        color: #ffd700;
-        letter-spacing: 0.5px;
+        color: #ffb703;
     }
 
     label {
@@ -348,7 +538,7 @@
         margin: 14px 0 6px 0;
         font-size: 12px;
         font-weight: 600;
-        color: #a5b4fc;
+        color: #94a3b8;
         letter-spacing: 0.5px;
         text-transform: uppercase;
     }
@@ -357,8 +547,8 @@
         padding: 12px 14px;
         width: 100%;
         border-radius: 10px;
-        border: 1px solid rgba(0, 242, 255, 0.25);
-        background: rgba(4, 8, 20, 0.85);
+        border: 1px solid rgba(255, 183, 3, 0.2);
+        background: rgba(11, 15, 23, 0.85);
         color: #fff;
         margin-bottom: 4px;
         cursor: pointer;
@@ -368,19 +558,18 @@
     }
     input:focus, select:focus {
         outline: none;
-        border-color: #00f2ff;
-        box-shadow: 0 0 12px rgba(0, 242, 255, 0.3);
-        background: rgba(8, 15, 35, 0.95);
+        border-color: #ffb703;
+        box-shadow: 0 0 12px rgba(255, 183, 3, 0.3);
+        background: rgba(15, 23, 42, 0.95);
     }
 
     .resultado-caja {
-        background: linear-gradient(135deg, rgba(0, 242, 255, 0.08), rgba(255, 215, 0, 0.08));
-        border: 1px solid rgba(0, 242, 255, 0.3);
+        background: rgba(255, 183, 3, 0.08);
+        border: 1px solid rgba(255, 183, 3, 0.3);
         padding: 16px;
         margin-top: 20px;
         border-radius: 12px;
         text-align: center;
-        box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.05);
     }
 
     .total-oro {
@@ -401,22 +590,19 @@
         text-align: center;
         margin-top: 20px;
         cursor: pointer;
-        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
         transition: all 0.3s ease;
-        letter-spacing: 0.5px;
     }
     .btn-wa:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
     }
 
     .footer {
-        margin-top: 25px;
+        margin-top: 30px;
         color: rgba(255, 255, 255, 0.4);
-        font-size: 11px;
+        font-size: 12px;
         text-align: center;
         line-height: 1.6;
-        letter-spacing: 0.5px;
     }
 
     #panel-admin {
@@ -453,53 +639,48 @@
         border-right: 1px solid rgba(255,255,255,0.08);
         text-align: center;
     }
-    .tabla-rangos th { background: rgba(0, 242, 255, 0.08); color: #00f2ff; font-weight: 700; }
+    .tabla-rangos th { background: rgba(255, 183, 3, 0.1); color: #ffb703; font-weight: 700; }
     .tabla-rangos tr:last-child td { border-bottom: none; }
     .tabla-rangos td:last-child, .tabla-rangos th:last-child { border-right: none; }
 
-    /* ---- Sección de Testimonios (landing, compacta y colapsable) ---- */
-    .caja-referencias { margin-top: 20px; max-width: 480px; padding: 22px 25px; }
-    .caja-referencias h1 { font-size: 18px; letter-spacing: 0.5px; }
+    /* ---- Testimonios ---- */
+    .caja-referencias { margin-top: 10px; }
+    .caja-referencias h1 { font-size: 18px; }
     .caja-referencias .subtitle { font-size: 11px; margin-bottom: 15px; }
     
     .btn-toggle-ref {
         width: 100%;
-        background: rgba(0, 242, 255, 0.05);
-        border: 1px solid rgba(0, 242, 255, 0.35);
-        color: #00f2ff;
+        background: rgba(255, 183, 3, 0.05);
+        border: 1px solid rgba(255, 183, 3, 0.3);
+        color: #ffb703;
         padding: 12px;
         border-radius: 12px;
         font-size: 12px;
         font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
-        letter-spacing: 0.5px;
     }
     .btn-toggle-ref:hover {
-        background: rgba(0, 242, 255, 0.12);
-        box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+        background: rgba(255, 183, 3, 0.12);
     }
     
     #contenedor-ref-scroll { display: none; margin-top: 16px; }
     
     .filtros-ref { display: flex; gap: 6px; margin-bottom: 16px; justify-content: center; flex-wrap: wrap; }
     .btn-filtro {
-        background: rgba(0, 242, 255, 0.05);
-        border: 1px solid rgba(0, 242, 255, 0.25);
-        color: #00f2ff;
+        background: rgba(255, 183, 3, 0.05);
+        border: 1px solid rgba(255, 183, 3, 0.25);
+        color: #ffb703;
         padding: 6px 14px;
         border-radius: 20px;
         font-size: 11px;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.3s ease;
     }
     .btn-filtro.activo {
-        background: #00f2ff;
-        color: #030008;
+        background: #ffb703;
+        color: #0b0f17;
         font-weight: 800;
-        box-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
-        border-color: #00f2ff;
     }
 
     .grid-referencias {
@@ -508,26 +689,19 @@
         gap: 12px;
         max-height: 400px;
         overflow-y: auto;
-        overflow-x: hidden;
-        padding-bottom: 6px;
     }
     .grid-referencias::-webkit-scrollbar { width: 6px; }
-    .grid-referencias::-webkit-scrollbar-thumb { background: rgba(0, 242, 255, 0.3); border-radius: 6px; }
+    .grid-referencias::-webkit-scrollbar-thumb { background: rgba(255, 183, 3, 0.3); border-radius: 6px; }
 
     .tarjeta-ref {
-        background: rgba(0, 242, 255, 0.04);
-        border: 1px solid rgba(0, 242, 255, 0.2);
+        background: rgba(255, 183, 3, 0.04);
+        border: 1px solid rgba(255, 183, 3, 0.2);
         border-radius: 12px;
         padding: 14px 12px;
         text-align: center;
-        transition: transform 0.2s ease, border-color 0.2s ease;
     }
-    .tarjeta-ref:hover {
-        border-color: rgba(0, 242, 255, 0.5);
-        transform: translateY(-2px);
-    }
-    .tarjeta-ref-tipo { font-size: 10px; color: #ffd700; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
-    .tarjeta-ref-nombre { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tarjeta-ref-tipo { font-size: 10px; color: #ffd700; font-weight: 700; margin-bottom: 6px; }
+    .tarjeta-ref-nombre { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #fff; }
     .tarjeta-ref-progreso { font-size: 11px; color: #ccc; line-height: 1.6; }
     .tarjeta-ref-progreso .antes { color: #ff6b6b; display: block; }
     .tarjeta-ref-progreso .despues { color: #4caf50; font-weight: 700; display: block; }
@@ -536,7 +710,7 @@
     #sin-referencias { display: none; text-align: center; color: #888; padding: 20px 5px; font-size: 12px; }
     
     .form-admin-ref { border-top: 1px dashed rgba(255,255,255,0.15); margin-top: 20px; padding-top: 15px; }
-    .form-admin-ref h3 { font-size: 13px; color: #00f2ff; margin: 0 0 10px 0; text-align: left; font-weight: 700; }
+    .form-admin-ref h3 { font-size: 13px; color: #ffb703; margin: 0 0 10px 0; text-align: left; }
 
     .btn-admin-accion {
         border: none;
@@ -545,151 +719,213 @@
         cursor: pointer;
         font-size: 11px;
         font-weight: 700;
-        transition: opacity 0.2s;
     }
-    .btn-admin-accion:hover { opacity: 0.85; }
-    .btn-admin-accion.editar { background: #00f2ff; color: #030008; }
+    .btn-admin-accion.editar { background: #ffb703; color: #0b0f17; }
     .btn-admin-accion.borrar { background: #ff3333; color: white; margin-left: 6px; }
     .btn-admin-accion.aprobar { background: #25D366; color: white; }
     .btn-admin-accion.rechazar { background: #ff3333; color: white; margin-left: 6px; }
+
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .hero-title { font-size: 28px; }
+        .hero-banner { padding: 30px 20px; }
+    }
 </style>
 </head>
 <body>
 
-    <div class="caja" id="contenedor">
-        <div id="vista-seguimiento">
-            <h1 id="cliente-nombre">Seguimiento</h1>
-            <div id="rango-cliente" style="font-size: 18px; margin: 8px 0;"></div>
-            <div id="reloj" style="font-size: 42px; color: #ffd700; margin: 20px 0; font-weight: 900; text-shadow: 0 0 20px rgba(255,215,0,0.4);">00:00:00</div>
+    <!-- Navbar Superior -->
+    <header class="navbar">
+        <div class="logo-container">
+            <div class="logo-icon">🛡️</div>
+            <div class="logo-text">
+                <span class="logo-title">RUCOY SHARE</span>
+                <span class="logo-sub">ELITE SERVICES & BOOSTING</span>
+            </div>
         </div>
+        <nav class="nav-links">
+            <a href="#inicio" class="nav-link active">Inicio</a>
+            <a href="#servicios" class="nav-link">Servicios & Precios</a>
+        </nav>
+        <div>
+            <button class="btn-nav-auth" onclick="verificarAdmin()">Iniciar Sesión</button>
+            <button class="btn-nav-register" onclick="document.getElementById('servicios').scrollIntoView();">Registrarse</button>
+        </div>
+    </header>
 
-        <div id="vista-formulario">
-            <div id="estado-servicio" class="estado-badge">Cargando...</div>
-            <h1 ondblclick="verificarAdmin()">🛡️ SAFEGAMING SERVICE 🛡️ <span id="badge-pendientes" style="display:none; background:#ff3333; color:white; font-size:11px; border-radius:10px; padding:2px 8px; vertical-align:middle;"></span></h1>
-            <div class="subtitle">RUCOY ONLINE: PROFESIONAL</div>
-            <div class="horario-box">🕒 <b>HORARIO:</b> 9:00 AM - 7:00 PM</div>
-            
-            <label>Nombre del Personaje:</label>
-            <input type="text" id="personaje" placeholder="Ej: RucoyPro" oninput="calcularTotal()">
-            
-            <label>Elige tu Profesión:</label>
-            <select id="clase" onchange="calcularTotal()">
-                <option value="Melee">⚔️ Melee</option>
-                <option value="Distance">🏹 Distancia</option>
-                <option value="Magic">✨ Magia</option>
-            </select>
-            
-            <label>Nivel de tu Skill:</label>
-            <input type="number" id="nivel-skill" placeholder="Ej: 100" min="1" oninput="actualizarBarra()">
-            <div id="contenedor-barra" style="margin-top:12px; display:none; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
-                <div style="font-size: 11px; margin-bottom: 5px; font-weight: 600;">Rango Actual: <span id="nombre-rango">Bronce</span></div>
-                <div style="width: 100%; height: 8px; background: #222; border-radius: 4px; overflow: hidden;">
-                    <div id="barra-progreso" style="width: 0%; height: 100%; background: #cd7f32; transition: width 0.3s, background 0.3s;"></div>
-                </div>
+    <div class="main-container">
+        
+        <!-- Hero Banner Principal -->
+        <section class="hero-banner" id="inicio">
+            <div class="hero-tag">👑 Servicio Profesional & Share Oficial Rucoy Online</div>
+            <h1 class="hero-title">LLEVA TU<br>PERSONAJE AL<br><span>MÁXIMO NIVEL</span></h1>
+            <p class="hero-description">
+                ¿Buscas el mejor share, farmeo de oro o subida de stats sin riesgos?<br>
+                Plataforma 100% verificada con registro en la nube local y botón de compra directa a WhatsApp para atención inmediata.
+            </p>
+            <div class="hero-actions">
+                <a href="#servicios" class="btn-hero-primary">⚡ Ver Servicios y Precios</a>
+                <a href="#" id="hero-wa-btn" class="btn-hero-secondary" onclick="document.getElementById('boton-whatsapp').click();">💬 Chat Directo WhatsApp</a>
+            </div>
+        </section>
+
+        <!-- Tarjetas de Beneficios -->
+        <section class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-text">SHARE 100% SEGURO</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <div class="feature-text">CHECKOUT A WHATSAPP</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☁️</div>
+                <div class="feature-text">BASE DE DATOS EN NUBE LOCAL</div>
+            </div>
+        </section>
+
+        <!-- Calculadora / Servicios -->
+        <section class="caja" id="servicios">
+            <div id="vista-seguimiento">
+                <h1 id="cliente-nombre">Seguimiento</h1>
+                <div id="rango-cliente" style="font-size: 18px; margin: 8px 0;"></div>
+                <div id="reloj" style="font-size: 42px; color: #ffd700; margin: 20px 0; font-weight: 900; text-shadow: 0 0 20px rgba(255,215,0,0.4);">00:00:00</div>
             </div>
 
-            <table class="tabla-rangos">
-                <tr><th>Rango</th><th>Horas</th></tr>
-                <tr><td style="color:#c0c0c0; font-weight:600;">⚪ PLATA</td><td>20+</td></tr>
-                <tr><td style="color:#ffd700; font-weight:600;">🟡 ORO</td><td>30+</td></tr>
-                <tr><td style="color:#00f2ff; font-weight:600;">💎 DIAMANTE</td><td>50+</td></tr>
-                <tr><td style="color:#00f2ff; font-weight:600;">💎 PREMIUM</td><td>500+</td></tr>
-                <tr><td style="color:#FFD700; font-weight:600;">👑 VIP</td><td>1000+</td></tr>
-                <tr><td style="color:#ff8c00; font-weight:600;">🔥 LEYENDA I</td><td>1500+</td></tr>
-                <tr><td style="color:#ff4500; font-weight:600;">⚡ LEYENDA II</td><td>2000+</td></tr>
-            </table>
-
-            <label>Servicio:</label>
-            <select id="servicio" onchange="calcularTotal()">
-                <option value="300">Skill Normal - $300k / hr</option>
-                <option value="360">Power Training - $360k / hr</option>
-                <option value="600">Subida de Nivel - $600k / hr</option>
-                <option value="1400">Pack Maraton (5h) - 1.4KK</option>
-                <option value="1700">Pack Ptrain Pro (5h) - 1.7KK</option>
-            </select>
-            
-            <label>Cantidad de Horas:</label>
-            <input type="number" id="horas" value="1" min="1" oninput="calcularTotal()">
-            
-            <div class="resultado-caja">
-                <div class="total-oro" id="precio-final">300k gold</div>
-            </div>
-
-            <a href="#" id="boton-whatsapp" class="btn-wa" onclick="reproducirYRedirigir()">💬 APARTAR CUPO POR WHATSAPP</a>
-            
-            <div id="panel-admin">
-                <button onclick="cambiarEstado()" style="width:100%; padding:12px; background: #ff3333; color: white; font-weight:700; border-radius:10px; border:none; cursor:pointer; margin-bottom:12px;">CAMBIAR ESTADO</button>
-                <input type="text" id="admin-nombre" placeholder="Nombre cliente" style="margin-top:5px;">
-                <input type="number" id="admin-horas" placeholder="Horas">
-                <button onclick="generarLink()" style="width:100%; padding:12px; background: #00f2ff; color: #030008; font-weight:800; border-radius:10px; border:none; cursor:pointer; margin-top:8px;">GENERAR LINK</button>
-                <div id="link-generado" style="color:#ffd700; font-size:11px; margin-top:10px; word-break:break-all; background:rgba(0,0,0,0.3); padding:8px; border-radius:6px;"></div>
-                <div id="lista-clientes" style="margin-top:15px; max-height: 150px; overflow-y: auto;"></div>
-
-                <div class="form-admin-ref">
-                    <h3>📥 PENDIENTES POR APROBAR (<span id="contador-pendientes">0</span>)</h3>
-                    <div id="lista-pendientes-admin" style="max-height: 220px; overflow-y: auto;">
-                        <div id="contenido-lista-pendientes"></div>
+            <div id="vista-formulario">
+                <div id="estado-servicio" class="estado-badge">Cargando...</div>
+                <h1 ondblclick="verificarAdmin()">🛡️ SAFEGAMING SERVICE 🛡️ <span id="badge-pendientes" style="display:none; background:#ff3333; color:white; font-size:11px; border-radius:10px; padding:2px 8px; vertical-align:middle;"></span></h1>
+                <div class="subtitle">RUCOY ONLINE: PROFESIONAL</div>
+                <div class="horario-box">🕒 <b>HORARIO:</b> 9:00 AM - 7:00 PM</div>
+                
+                <label>Nombre del Personaje:</label>
+                <input type="text" id="personaje" placeholder="Ej: RucoyPro" oninput="calcularTotal()">
+                
+                <label>Elige tu Profesión:</label>
+                <select id="clase" onchange="calcularTotal()">
+                    <option value="Melee">⚔️ Melee</option>
+                    <option value="Distance">🏹 Distancia</option>
+                    <option value="Magic">✨ Magia</option>
+                </select>
+                
+                <label>Nivel de tu Skill:</label>
+                <input type="number" id="nivel-skill" placeholder="Ej: 100" min="1" oninput="actualizarBarra()">
+                <div id="contenedor-barra" style="margin-top:12px; display:none; background: rgba(0,0,0,0.4); padding: 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);">
+                    <div style="font-size: 11px; margin-bottom: 5px; font-weight: 600;">Rango Actual: <span id="nombre-rango">Bronce</span></div>
+                    <div style="width: 100%; height: 8px; background: #222; border-radius: 4px; overflow: hidden;">
+                        <div id="barra-progreso" style="width: 0%; height: 100%; background: #cd7f32; transition: width 0.3s, background 0.3s;"></div>
                     </div>
                 </div>
 
-                <div class="form-admin-ref">
-                    <h3>📊 AGREGAR TESTIMONIO DIRECTO</h3>
-                    <select id="ref-tipo">
-                        <option value="Skill">⚔️ Skill</option>
-                        <option value="Nivel">⭐ Nivel</option>
-                        <option value="Cuenta">🎮 Cuenta</option>
-                    </select>
-                    <input type="text" id="ref-nombre" placeholder="Nombre del cliente / personaje">
-                    <input type="text" id="ref-antes" placeholder="Antes (ej: Skill 80 / Nivel 120)">
-                    <input type="text" id="ref-despues" placeholder="Después (ej: Skill 150 / Nivel 200)">
-                    <button onclick="agregarTestimonio()" style="width:100%; padding:12px; background:#00f2ff; color:#030008; font-weight:800; border-radius:10px; border:none; cursor:pointer; margin-top:8px;">➕ AGREGAR TESTIMONIO</button>
-                    <div id="lista-referencias-admin" style="margin-top:15px; max-height: 220px; overflow-y: auto;">
-                        <div style="font-size:11px; color:#00f2ff; margin-bottom:8px; font-weight:700;"><b>Testimonios publicados (editar/borrar):</b></div>
-                        <div id="contenido-lista-ref"></div>
+                <table class="tabla-rangos">
+                    <tr><th>Rango</th><th>Horas</th></tr>
+                    <tr><td style="color:#c0c0c0; font-weight:600;">⚪ PLATA</td><td>20+</td></tr>
+                    <tr><td style="color:#ffd700; font-weight:600;">🟡 ORO</td><td>30+</td></tr>
+                    <tr><td style="color:#00f2ff; font-weight:600;">💎 DIAMANTE</td><td>50+</td></tr>
+                    <tr><td style="color:#00f2ff; font-weight:600;">💎 PREMIUM</td><td>500+</td></tr>
+                    <tr><td style="color:#FFD700; font-weight:600;">👑 VIP</td><td>1000+</td></tr>
+                    <tr><td style="color:#ff8c00; font-weight:600;">🔥 LEYENDA I</td><td>1500+</td></tr>
+                    <tr><td style="color:#ff4500; font-weight:600;">⚡ LEYENDA II</td><td>2000+</td></tr>
+                </table>
+
+                <label>Servicio:</label>
+                <select id="servicio" onchange="calcularTotal()">
+                    <option value="300">Skill Normal - $300k / hr</option>
+                    <option value="360">Power Training - $360k / hr</option>
+                    <option value="600">Subida de Nivel - $600k / hr</option>
+                    <option value="1400">Pack Maraton (5h) - 1.4KK</option>
+                    <option value="1700">Pack Ptrain Pro (5h) - 1.7KK</option>
+                </select>
+                
+                <label>Cantidad de Horas:</label>
+                <input type="number" id="horas" value="1" min="1" oninput="calcularTotal()">
+                
+                <div class="resultado-caja">
+                    <div class="total-oro" id="precio-final">300k gold</div>
+                </div>
+
+                <a href="#" id="boton-whatsapp" class="btn-wa" onclick="reproducirYRedirigir()">💬 APARTAR CUPO POR WHATSAPP</a>
+                
+                <div id="panel-admin">
+                    <button onclick="cambiarEstado()" style="width:100%; padding:12px; background: #ff3333; color: white; font-weight:700; border-radius:10px; border:none; cursor:pointer; margin-bottom:12px;">CAMBIAR ESTADO</button>
+                    <input type="text" id="admin-nombre" placeholder="Nombre cliente" style="margin-top:5px;">
+                    <input type="number" id="admin-horas" placeholder="Horas">
+                    <button onclick="generarLink()" style="width:100%; padding:12px; background: #ffb703; color: #0b0f17; font-weight:800; border-radius:10px; border:none; cursor:pointer; margin-top:8px;">GENERAR LINK</button>
+                    <div id="link-generado" style="color:#ffd700; font-size:11px; margin-top:10px; word-break:break-all; background:rgba(0,0,0,0.3); padding:8px; border-radius:6px;"></div>
+                    <div id="lista-clientes" style="margin-top:15px; max-height: 150px; overflow-y: auto;"></div>
+
+                    <div class="form-admin-ref">
+                        <h3>📥 PENDIENTES POR APROBAR (<span id="contador-pendientes">0</span>)</h3>
+                        <div id="lista-pendientes-admin" style="max-height: 220px; overflow-y: auto;">
+                            <div id="contenido-lista-pendientes"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-admin-ref">
+                        <h3>📊 AGREGAR TESTIMONIO DIRECTO</h3>
+                        <select id="ref-tipo">
+                            <option value="Skill">⚔️ Skill</option>
+                            <option value="Nivel">⭐ Nivel</option>
+                            <option value="Cuenta">🎮 Cuenta</option>
+                        </select>
+                        <input type="text" id="ref-nombre" placeholder="Nombre del cliente / personaje">
+                        <input type="text" id="ref-antes" placeholder="Antes (ej: Skill 80 / Nivel 120)">
+                        <input type="text" id="ref-despues" placeholder="Después (ej: Skill 150 / Nivel 200)">
+                        <button onclick="agregarTestimonio()" style="width:100%; padding:12px; background:#ffb703; color:#0b0f17; font-weight:800; border-radius:10px; border:none; cursor:pointer; margin-top:8px;">➕ AGREGAR TESTIMONIO</button>
+                        <div id="lista-referencias-admin" style="margin-top:15px; max-height: 220px; overflow-y: auto;">
+                            <div style="font-size:11px; color:#ffb703; margin-bottom:8px; font-weight:700;"><b>Testimonios publicados (editar/borrar):</b></div>
+                            <div id="contenido-lista-ref"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <div class="caja caja-referencias">
-        <h1>📊 TESTIMONIOS DE CLIENTES</h1>
-        <div class="subtitle">SKILL • NIVEL • CUENTAS</div>
-        <button class="btn-toggle-ref" id="btn-toggle-ref" onclick="toggleReferencias()">👁️ VER TESTIMONIOS (<span id="contador-ref">0</span>)</button>
-        <div id="contenedor-ref-scroll">
-            <div class="filtros-ref">
-                <button class="btn-filtro activo" data-tipo="Todos" onclick="filtrarReferencias('Todos', this)">Todos</button>
-                <button class="btn-filtro" data-tipo="Skill" onclick="filtrarReferencias('Skill', this)">⚔️ Skill</button>
-                <button class="btn-filtro" data-tipo="Nivel" onclick="filtrarReferencias('Nivel', this)">⭐ Nivel</button>
-                <button class="btn-filtro" data-tipo="Cuenta" onclick="filtrarReferencias('Cuenta', this)">🎮 Cuenta</button>
+        <!-- Sección Testimonios -->
+        <section class="caja caja-referencias">
+            <h1>📊 TESTIMONIOS DE CLIENTES</h1>
+            <div class="subtitle">SKILL • NIVEL • CUENTAS</div>
+            <button class="btn-toggle-ref" id="btn-toggle-ref" onclick="toggleReferencias()">👁️ VER TESTIMONIOS (<span id="contador-ref">0</span>)</button>
+            <div id="contenedor-ref-scroll">
+                <div class="filtros-ref">
+                    <button class="btn-filtro activo" data-tipo="Todos" onclick="filtrarReferencias('Todos', this)">Todos</button>
+                    <button class="btn-filtro" data-tipo="Skill" onclick="filtrarReferencias('Skill', this)">⚔️ Skill</button>
+                    <button class="btn-filtro" data-tipo="Nivel" onclick="filtrarReferencias('Nivel', this)">⭐ Nivel</button>
+                    <button class="btn-filtro" data-tipo="Cuenta" onclick="filtrarReferencias('Cuenta', this)">🎮 Cuenta</button>
+                </div>
+                <div class="grid-referencias" id="grid-referencias"></div>
+                <div id="sin-referencias">Aún no hay testimonios publicados en esta categoría.</div>
             </div>
-            <div class="grid-referencias" id="grid-referencias"></div>
-            <div id="sin-referencias">Aún no hay testimonios publicados en esta categoría.</div>
-        </div>
 
-        <button class="btn-toggle-ref" id="btn-toggle-form-publico" style="margin-top:12px;" onclick="toggleFormularioPublico()">✍️ DEJAR MI TESTIMONIO</button>
-        <div id="form-ref-publico" style="display:none; margin-top:14px; text-align:left;">
-            <p style="font-size:11px; color:#aaa; margin:0 0 10px 0; line-height:1.4;">Cuéntanos tu experiencia. Se revisa antes de publicarse, así que no aparece de inmediato.</p>
-            <label style="margin-top:0;">Tipo:</label>
-            <select id="pub-ref-tipo">
-                <option value="Skill">⚔️ Skill</option>
-                <option value="Nivel">⭐ Nivel</option>
-                <option value="Cuenta">🎮 Cuenta</option>
-            </select>
-            <label>Tu nombre o el de tu personaje:</label>
-            <input type="text" id="pub-ref-nombre" placeholder="Ej: RucoyPro" maxlength="60">
-            <label>Antes:</label>
-            <input type="text" id="pub-ref-antes" placeholder="Ej: Skill 80 / Nivel 120" maxlength="60">
-            <label>Después:</label>
-            <input type="text" id="pub-ref-despues" placeholder="Ej: Skill 150 / Nivel 200" maxlength="60">
-            <button onclick="enviarReferenciaPublica()" style="width:100%; padding:12px; background:#00f2ff; color:#030008; font-weight:800; border-radius:10px; border:none; cursor:pointer; margin-top:10px;">📤 ENVIAR PARA REVISIÓN</button>
-            <div id="pub-ref-msj" style="font-size:11px; margin-top:10px; text-align:center; font-weight:600;"></div>
-        </div>
+            <button class="btn-toggle-ref" id="btn-toggle-form-publico" style="margin-top:12px;" onclick="toggleFormularioPublico()">✍️ DEJAR MI TESTIMONIO</button>
+            <div id="form-ref-publico" style="display:none; margin-top:14px; text-align:left;">
+                <p style="font-size:11px; color:#aaa; margin:0 0 10px 0; line-height:1.4;">Cuéntanos tu experiencia. Se revisa antes de publicarse, así que no aparece de inmediato.</p>
+                <label style="margin-top:0;">Tipo:</label>
+                <select id="pub-ref-tipo">
+                    <option value="Skill">⚔️ Skill</option>
+                    <option value="Nivel">⭐ Nivel</option>
+                    <option value="Cuenta">🎮 Cuenta</option>
+                </select>
+                <label>Tu nombre o el de tu personaje:</label>
+                <input type="text" id="pub-ref-nombre" placeholder="Ej: RucoyPro" maxlength="60">
+                <label>Antes:</label>
+                <input type="text" id="pub-ref-antes" placeholder="Ej: Skill 80 / Nivel 120" maxlength="60">
+                <label>Después:</label>
+                <input type="text" id="pub-ref-despues" placeholder="Ej: Skill 150 / Nivel 200" maxlength="60">
+                <button onclick="enviarReferenciaPublica()" style="width:100%; padding:12px; background:#ffb703; color:#0b0f17; font-weight:800; border-radius:10px; border:none; cursor:pointer; margin-top:10px;">📤 ENVIAR PARA REVISIÓN</button>
+                <div id="pub-ref-msj" style="font-size:11px; margin-top:10px; text-align:center; font-weight:600;"></div>
+            </div>
+        </section>
+
     </div>
 
     <audio id="sonido-level" src="universfield-level-up-191997.mp3" preload="auto"></audio>
 
-    <div class="footer">Servicio profesional de Skilleo y Share<br>Atención: +58 412-3576579<br><span style="opacity:0.6;">build: testimonios-grid-pro</span></div>
+    <footer class="footer">
+        Servicio profesional de Skilleo y Share<br>Atención: +58 412-3576579<br>
+        <span style="opacity:0.6;">build: rucoy-share-elite-v1</span>
+    </footer>
 
     <script>
         function calcularTotal() {
@@ -707,7 +943,9 @@
 
         document.addEventListener('click', function unlockAudio() {
             const audio = document.getElementById('sonido-level');
-            audio.play().then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {});
+            if(audio) {
+                audio.play().then(() => { audio.pause(); audio.currentTime = 0; }).catch(() => {});
+            }
             document.removeEventListener('click', unlockAudio);
         }, { once: true });
 
@@ -750,7 +988,7 @@
 
         function cargarAdmin() {
             let div = document.getElementById('lista-clientes');
-            div.innerHTML = "<div style='margin-top:15px; border-top:1px solid rgba(0, 242, 255, 0.3); padding-top:10px;'><strong>📋 TABLA DE CLIENTES:</strong></div><div id='contenido-lista'></div>";
+            div.innerHTML = "<div style='margin-top:15px; border-top:1px solid rgba(255, 183, 3, 0.3); padding-top:10px;'><strong>📋 TABLA DE CLIENTES:</strong></div><div id='contenido-lista'></div>";
             const listaDiv = document.getElementById('contenido-lista');
             window.onValue(window.ref(window.db, 'clientes'), (snap) => {
                 listaDiv.innerHTML = "";
@@ -767,7 +1005,7 @@
             let horas = parseInt(document.getElementById("horas").value) || 1;
             if(nombre) window.registrarCliente(nombre, horas);
             const audio = document.getElementById('sonido-level');
-            audio.play();
+            if(audio) audio.play();
             setTimeout(() => { window.open(document.getElementById('boton-whatsapp').href, '_blank'); }, 600);
         }
 
@@ -775,6 +1013,8 @@
         if(params.has('n')) {
             document.getElementById("vista-formulario").style.display = "none";
             document.querySelector(".caja-referencias").style.display = "none";
+            document.querySelector(".hero-banner").style.display = "none";
+            document.querySelector(".features-grid").style.display = "none";
             document.getElementById("vista-seguimiento").style.display = "block";
             document.getElementById("cliente-nombre").innerText = "Cliente: " + decodeURIComponent(params.get('n'));
             let r = params.get('r') || "Novato", c = params.get('c') || "#aaa", i = params.get('i') || "👶";
@@ -805,9 +1045,7 @@
             });
         }
 
-        const fondos = ["https://assets-prd.ignimgs.com/2025/08/27/solothumb-1756317128314.png", "https://sm.ign.com/t/ign_in/photo/default/solo-leveling-arise-overdrive-blogroll-1759428421562_e9mp.1280.jpg"];
-        let i = 0; function rotar() { document.body.style.backgroundImage = "url('" + fondos[i] + "')"; i = (i + 1) % fondos.length; }
-        window.onload = () => { rotar(); setInterval(rotar, 30000); calcularTotal(); };
+        window.onload = () => { calcularTotal(); };
     </script>
 </body>
 </html>
