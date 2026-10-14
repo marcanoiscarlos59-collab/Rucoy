@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RUCOY SHARE - Elite Services & Boosting</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getDatabase, ref, onValue, set, push, update, get, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
@@ -258,109 +258,127 @@
         margin: 0;
         font-family: 'Outfit', sans-serif;
         color: #e2e8f0;
-        background-color: #0b0f17;
+        background-color: #06090f;
+        background-image: 
+            radial-gradient(circle at 50% 0%, rgba(255, 183, 3, 0.18) 0%, transparent 60%),
+            radial-gradient(circle at 10% 40%, rgba(251, 133, 0, 0.08) 0%, transparent 50%);
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         padding-bottom: 40px;
+        overflow-x: hidden;
     }
 
-    /* Navbar Superior */
+    /* ---- Navbar Superior Pro ---- */
     .navbar {
         width: 100%;
         max-width: 1100px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 25px;
-        background: rgba(15, 23, 42, 0.4);
-        border-bottom: 1px solid rgba(255, 183, 3, 0.15);
-        backdrop-filter: blur(10px);
+        padding: 18px 25px;
+        background: rgba(10, 15, 26, 0.75);
+        border-bottom: 1px solid rgba(255, 183, 3, 0.3);
+        backdrop-filter: blur(15px);
         position: sticky;
         top: 0;
         z-index: 100;
+        box-shadow: 0 4px 25px rgba(0,0,0,0.5);
     }
     .logo-container { display: flex; align-items: center; gap: 12px; }
     .logo-icon {
-        width: 42px; height: 42px;
+        width: 44px; height: 44px;
         background: linear-gradient(135deg, #ffb703, #fb8500);
         border-radius: 12px;
         display: flex; align-items: center; justify-content: center;
-        font-size: 22px;
-        box-shadow: 0 0 15px rgba(251, 133, 0, 0.4);
+        font-size: 24px;
+        box-shadow: 0 0 20px rgba(251, 133, 0, 0.6);
+        animation: pulseLogo 3s infinite alternate;
     }
-    .logo-title { font-family: 'Cinzel', serif; font-size: 20px; font-weight: 900; color: #ffb703; letter-spacing: 1px; }
+    @keyframes pulseLogo {
+        0% { box-shadow: 0 0 15px rgba(251, 133, 0, 0.4); }
+        100% { box-shadow: 0 0 25px rgba(255, 183, 3, 0.8); }
+    }
+    .logo-title { font-family: 'Cinzel', serif; font-size: 21px; font-weight: 900; color: #ffb703; letter-spacing: 1px; }
     .logo-sub { font-size: 10px; color: #94a3b8; letter-spacing: 2px; font-weight: 700; }
-    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
     .nav-link {
-        color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 600;
-        padding: 8px 14px; border-radius: 8px; transition: all 0.3s;
+        color: #94a3b8; text-decoration: none; font-size: 14px; font-weight: 700;
+        padding: 8px 16px; border-radius: 10px; transition: all 0.3s;
     }
     .nav-link.active, .nav-link:hover {
-        color: #ffb703; background: rgba(255, 183, 3, 0.08);
+        color: #ffb703; background: rgba(255, 183, 3, 0.12);
+        box-shadow: inset 0 0 10px rgba(255, 183, 3, 0.1);
     }
     .btn-nav-auth {
-        background: transparent; border: 1px solid rgba(255,183,3,0.3); color: #ffb703;
-        font-size: 13px; font-weight: 700; cursor: pointer; padding: 8px 18px; border-radius: 20px;
+        background: transparent; border: 1px solid rgba(255,183,3,0.4); color: #ffb703;
+        font-size: 13px; font-weight: 800; cursor: pointer; padding: 8px 18px; border-radius: 20px;
         transition: all 0.3s;
     }
-    .btn-nav-auth:hover { background: rgba(255,183,3,0.1); }
+    .btn-nav-auth:hover { background: #ffb703; color: #0b0f17; box-shadow: 0 0 15px rgba(255,183,3,0.5); }
 
     /* Layout Main */
     .main-container { width: 100%; max-width: 1100px; padding: 25px 20px 0 20px; display: flex; flex-direction: column; gap: 30px; }
 
-    /* Hero Banner */
+    /* ---- Hero Banner Impactante ---- */
     .hero-banner {
-        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(11, 15, 23, 0.95) 100%),
-                    radial-gradient(circle at 80% 40%, rgba(251, 133, 0, 0.12) 0%, transparent 60%);
-        border: 1px solid rgba(255, 183, 3, 0.25);
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.9) 0%, rgba(8, 11, 17, 0.98) 100%),
+                    radial-gradient(circle at 80% 40%, rgba(251, 133, 0, 0.2) 0%, transparent 60%);
+        border: 2px solid rgba(255, 183, 3, 0.35);
         border-radius: 24px;
         padding: 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 183, 3, 0.1);
+        position: relative;
     }
     .hero-content { max-width: 620px; }
     .hero-tag {
         display: inline-flex; align-items: center; gap: 8px;
-        background: rgba(255, 183, 3, 0.1); border: 1px solid rgba(255, 183, 3, 0.3);
-        color: #ffb703; font-size: 12px; font-weight: 700;
+        background: rgba(255, 183, 3, 0.12); border: 1px solid rgba(255, 183, 3, 0.4);
+        color: #ffb703; font-size: 12px; font-weight: 800;
         padding: 6px 14px; border-radius: 20px; margin-bottom: 20px;
     }
     .hero-title {
-        font-family: 'Cinzel', serif; font-size: 40px; font-weight: 900;
+        font-family: 'Cinzel', serif; font-size: 42px; font-weight: 900;
         line-height: 1.15; color: #ffffff; margin: 0 0 15px 0; letter-spacing: 1px;
     }
-    .hero-title span { color: #ffb703; text-shadow: 0 0 20px rgba(255, 183, 3, 0.4); }
-    .hero-description { color: #94a3b8; font-size: 14px; line-height: 1.6; margin-bottom: 25px; }
+    .hero-title span { color: #ffb703; text-shadow: 0 0 25px rgba(255, 183, 3, 0.6); }
+    .hero-description { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 25px; }
     .hero-actions { display: flex; gap: 15px; flex-wrap: wrap; }
+    
     .btn-hero-primary {
-        background: #ffb703; color: #0b0f17; font-weight: 800;
+        background: linear-gradient(135deg, #ffb703, #fb8500);
+        color: #0b0f17; font-weight: 900;
         padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 14px;
-        box-shadow: 0 0 20px rgba(255, 183, 3, 0.4); transition: transform 0.2s;
+        box-shadow: 0 0 25px rgba(255, 183, 3, 0.5); transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn-hero-secondary {
-        background: rgba(255, 255, 255, 0.95); color: #0b0f17; font-weight: 800;
-        padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 14px;
-        display: flex; align-items: center; gap: 8px; transition: transform 0.2s;
+    .btn-hero-tutorial {
+        background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 183, 3, 0.4);
+        color: #ffb703; font-weight: 800;
+        padding: 14px 24px; border-radius: 12px; text-decoration: none; font-size: 14px;
+        display: flex; align-items: center; gap: 8px; transition: transform 0.2s, background 0.2s;
+        cursor: pointer;
     }
-    .btn-hero-primary:hover, .btn-hero-secondary:hover { transform: translateY(-2px); }
+    .btn-hero-primary:hover, .btn-hero-tutorial:hover { transform: translateY(-3px); }
+    .btn-hero-tutorial:hover { background: rgba(255, 183, 3, 0.15); }
 
-    /* Muñequitos de Clase del Hero */
+    /* Muñequitos de Clase Elegantes */
     .hero-avatars-box {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 183, 3, 0.2);
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 183, 3, 0.3);
         border-radius: 20px;
-        padding: 20px;
-        display: flex; flex-direction: column; gap: 12px; align-items: center;
+        padding: 22px;
+        display: flex; flex-direction: column; gap: 14px; align-items: center;
+        box-shadow: inset 0 0 15px rgba(255, 183, 3, 0.05);
     }
-    .hero-avatars-title { font-size: 11px; font-weight: 800; color: #ffb703; letter-spacing: 1px; }
+    .hero-avatars-title { font-size: 11px; font-weight: 900; color: #ffb703; letter-spacing: 1.5px; }
     .hero-avatars { display: flex; gap: 12px; }
     .avatar-card {
-        background: rgba(8, 11, 17, 0.8);
-        border: 1px solid rgba(255, 183, 3, 0.25);
+        background: rgba(8, 11, 17, 0.9);
+        border: 1px solid rgba(255, 183, 3, 0.3);
         border-radius: 14px;
         padding: 12px 14px;
         text-align: center;
@@ -371,16 +389,16 @@
     .avatar-card:nth-child(2) { animation-delay: 1.2s; }
     .avatar-card:nth-child(3) { animation-delay: 2.4s; }
     .avatar-card:hover {
-        transform: translateY(-6px);
+        transform: translateY(-8px);
         border-color: #ffb703;
-        box-shadow: 0 8px 20px rgba(255, 183, 3, 0.3);
+        box-shadow: 0 10px 25px rgba(255, 183, 3, 0.4);
     }
-    .avatar-icon { font-size: 32px; filter: drop-shadow(0 0 8px rgba(255,183,3,0.4)); }
-    .avatar-label { font-size: 10px; font-weight: 800; color: #e2e8f0; margin-top: 4px; }
+    .avatar-icon { font-size: 34px; filter: drop-shadow(0 0 10px rgba(255,183,3,0.5)); }
+    .avatar-label { font-size: 10px; font-weight: 900; color: #e2e8f0; margin-top: 4px; }
 
     @keyframes levitate {
         0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-6px); }
+        50% { transform: translateY(-7px); }
     }
 
     /* Tarjetas Informativas */
@@ -390,8 +408,8 @@
         gap: 20px;
     }
     .feature-card {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 16px;
         padding: 22px;
         display: flex;
@@ -401,74 +419,97 @@
         transition: all 0.3s ease;
     }
     .feature-card:hover {
-        border-color: rgba(255, 183, 3, 0.5);
-        background: rgba(255, 183, 3, 0.08);
-        transform: translateY(-3px);
+        border-color: rgba(255, 183, 3, 0.6);
+        background: rgba(255, 183, 3, 0.1);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     }
     .feature-icon {
-        width: 42px; height: 42px;
-        background: rgba(255, 183, 3, 0.1);
-        border: 1px solid rgba(255, 183, 3, 0.2);
-        border-radius: 10px;
+        width: 44px; height: 44px;
+        background: rgba(255, 183, 3, 0.12);
+        border: 1px solid rgba(255, 183, 3, 0.3);
+        border-radius: 12px;
         display: flex; align-items: center; justify-content: center;
-        font-size: 20px; color: #ffb703; flex-shrink: 0;
+        font-size: 22px; color: #ffb703; flex-shrink: 0;
     }
     .feature-text {
         font-family: 'Cinzel', serif; font-weight: 700; font-size: 13px;
         color: #e2e8f0; letter-spacing: 0.5px;
     }
 
+    /* ---- Módulo Video Tutorial ---- */
+    .video-section {
+        background: rgba(15, 23, 42, 0.75);
+        border: 1px solid rgba(255, 183, 3, 0.3);
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .video-section h2 {
+        font-family: 'Cinzel', serif; color: #ffb703; font-size: 22px; margin: 0 0 10px 0;
+    }
+    .video-section p { font-size: 13px; color: #94a3b8; margin-bottom: 20px; }
+    .video-wrapper {
+        position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+        border-radius: 16px; border: 2px solid rgba(255, 183, 3, 0.3);
+        box-shadow: 0 0 25px rgba(0,0,0,0.8);
+    }
+    .video-wrapper iframe {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+    }
+
     /* Caja Calculadora y Servicios */
     .caja {
-        border: 1px solid rgba(255, 183, 3, 0.25);
+        border: 1px solid rgba(255, 183, 3, 0.3);
         padding: 30px;
         border-radius: 20px;
-        background: rgba(15, 23, 42, 0.75);
+        background: rgba(15, 23, 42, 0.8);
         backdrop-filter: blur(16px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
         width: 100%;
     }
 
     .estado-badge {
-        text-align: center; margin-bottom: 20px; font-weight: 700;
-        padding: 10px; border-radius: 12px; font-size: 13px; letter-spacing: 1px;
+        text-align: center; margin-bottom: 20px; font-weight: 800;
+        padding: 12px; border-radius: 12px; font-size: 13px; letter-spacing: 1px;
     }
-    .estado-badge.disponible { background: rgba(0, 255, 128, 0.1); color: #00ff80; border: 1px solid rgba(0, 255, 128, 0.3); }
-    .estado-badge.no-disponible { background: rgba(255, 60, 60, 0.1); color: #ff4d4d; border: 1px solid rgba(255, 60, 60, 0.3); }
+    .estado-badge.disponible { background: rgba(0, 255, 128, 0.12); color: #00ff80; border: 1px solid rgba(0, 255, 128, 0.4); }
+    .estado-badge.no-disponible { background: rgba(255, 60, 60, 0.12); color: #ff4d4d; border: 1px solid rgba(255, 60, 60, 0.4); }
 
     #vista-seguimiento { display: none; text-align: center; }
     
     h1 {
-        color: #ffb703; text-shadow: 0 0 15px rgba(255, 183, 3, 0.3);
+        color: #ffb703; text-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
         font-size: 24px; font-weight: 900; margin: 0 0 5px 0; text-align: center;
     }
 
-    .subtitle { color: #ffd700; font-weight: 600; margin-bottom: 20px; font-size: 12px; text-align: center; letter-spacing: 2px; }
+    .subtitle { color: #ffd700; font-weight: 700; margin-bottom: 20px; font-size: 12px; text-align: center; letter-spacing: 2px; }
     .horario-box {
-        background: rgba(255, 183, 3, 0.06); border: 1px solid rgba(255, 183, 3, 0.2);
-        border-radius: 12px; padding: 10px; margin-bottom: 20px; text-align: center; font-size: 12px; color: #ffb703;
+        background: rgba(255, 183, 3, 0.08); border: 1px solid rgba(255, 183, 3, 0.25);
+        border-radius: 12px; padding: 10px; margin-bottom: 20px; text-align: center; font-size: 12px; color: #ffb703; font-weight: 700;
     }
 
-    label { display: block; margin: 14px 0 6px 0; font-size: 12px; font-weight: 600; color: #94a3b8; text-transform: uppercase; }
+    label { display: block; margin: 14px 0 6px 0; font-size: 12px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
     input, select {
         padding: 12px 14px; width: 100%; border-radius: 10px;
-        border: 1px solid rgba(255, 183, 3, 0.2); background: rgba(11, 15, 23, 0.85);
+        border: 1px solid rgba(255, 183, 3, 0.25); background: rgba(11, 15, 23, 0.9);
         color: #fff; margin-bottom: 4px; cursor: pointer; font-family: 'Outfit', sans-serif; font-size: 14px;
     }
-    input:focus, select:focus { outline: none; border-color: #ffb703; box-shadow: 0 0 12px rgba(255, 183, 3, 0.3); }
+    input:focus, select:focus { outline: none; border-color: #ffb703; box-shadow: 0 0 12px rgba(255, 183, 3, 0.4); }
 
     .resultado-caja {
-        background: rgba(255, 183, 3, 0.08); border: 1px solid rgba(255, 183, 3, 0.3);
+        background: rgba(255, 183, 3, 0.1); border: 1px solid rgba(255, 183, 3, 0.4);
         padding: 16px; margin-top: 20px; border-radius: 12px; text-align: center;
     }
 
-    .total-oro { color: #ffd700; font-size: 24px; font-weight: 900; text-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+    .total-oro { color: #ffd700; font-size: 26px; font-weight: 900; text-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
 
     .btn-wa {
         background: linear-gradient(135deg, #25D366, #1ebe5d);
-        color: white; padding: 14px; text-decoration: none; font-weight: 700;
+        color: white; padding: 15px; text-decoration: none; font-weight: 800;
         border-radius: 12px; display: block; text-align: center; margin-top: 20px; cursor: pointer;
-        box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3); transition: all 0.3s ease;
+        box-shadow: 0 4px 25px rgba(37, 211, 102, 0.4); transition: all 0.3s ease;
     }
 
     .tabla-rangos {
@@ -476,26 +517,36 @@
         border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; overflow: hidden; color: #ccc;
     }
     .tabla-rangos th, .tabla-rangos td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: center; }
-    .tabla-rangos th { background: rgba(255, 183, 3, 0.1); color: #ffb703; }
+    .tabla-rangos th { background: rgba(255, 183, 3, 0.12); color: #ffb703; font-weight: 800; }
 
     #panel-admin { display: none; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
     .lista-item { padding: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 8px; font-size: 12px; }
 
-    /* Modal Emergente de Garantía */
+    /* ---- Modales (Bienvenida y Garantía) ---- */
     .modal-overlay {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 1000;
+        background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000;
         justify-content: center; align-items: center; padding: 20px;
     }
     .modal-content {
-        background: #0f172a; border: 1px solid #ffb703; border-radius: 20px;
-        padding: 30px; max-width: 450px; width: 100%; text-align: center;
-        box-shadow: 0 0 30px rgba(255, 183, 3, 0.3);
+        background: #0f172a; border: 2px solid #ffb703; border-radius: 24px;
+        padding: 35px 25px; max-width: 480px; width: 100%; text-align: center;
+        box-shadow: 0 0 40px rgba(255, 183, 3, 0.4);
+        position: relative; animation: popModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    @keyframes popModal {
+        0% { transform: scale(0.8); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    .modal-welcome-badge {
+        background: #ffb703; color: #0b0f17; font-weight: 900; font-size: 11px;
+        padding: 5px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px;
+        letter-spacing: 1px;
     }
 
     /* Testimonios */
     .caja-referencias { margin-top: 10px; }
-    .btn-toggle-ref { width: 100%; background: rgba(255, 183, 3, 0.05); border: 1px solid rgba(255, 183, 3, 0.3); color: #ffb703; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+    .btn-toggle-ref { width: 100%; background: rgba(255, 183, 3, 0.05); border: 1px solid rgba(255, 183, 3, 0.3); color: #ffb703; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; }
     #contenedor-ref-scroll { display: none; margin-top: 16px; }
     .filtros-ref { display: flex; gap: 6px; margin-bottom: 16px; justify-content: center; flex-wrap: wrap; }
     .btn-filtro { background: rgba(255, 183, 3, 0.05); border: 1px solid rgba(255, 183, 3, 0.25); color: #ffb703; padding: 6px 14px; border-radius: 20px; font-size: 11px; cursor: pointer; }
@@ -514,6 +565,24 @@
 </head>
 <body>
 
+    <!-- Modal Emergente de Bienvenida para Nuevos Usuarios -->
+    <div class="modal-overlay" id="modalBienvenida">
+        <div class="modal-content">
+            <span class="modal-welcome-badge">⭐ MENSAJE OFICIAL ⭐</span>
+            <h2 style="font-family:'Cinzel', serif; color:#ffb703; margin: 0 0 10px 0; font-size: 24px;">¡BIENVENIDO A RUCOY SHARE!</h2>
+            <p style="font-size:14px; color:#e2e8f0; line-height:1.6; margin-bottom: 15px;">
+                Somos la plataforma #1 verificada en servicios de <b>Skilleo, Power Training y Subida de Stats</b> para Rucoy Online.
+            </p>
+            <p style="font-size:12px; color:#94a3b8; line-height:1.5; background: rgba(255,183,3,0.06); padding: 12px; border-radius: 12px; border: 1px dashed rgba(255,183,3,0.3); margin-bottom: 20px;">
+                💡 <b>¿Eres nuevo?</b> Abajo encontrarás un video explicativo muy fácil para aprender a calcular tus horas y agendar tu cupo directamente a nuestro WhatsApp.
+            </p>
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button onclick="cerrarBienvenidaIrVideo()" style="background:#ffb703; color:#0b0f17; font-weight:900; border:none; padding:12px 20px; border-radius:12px; cursor:pointer;">🎬 VER VIDEO TUTORIAL</button>
+                <button onclick="cerrarBienvenida()" style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ccc; font-weight:700; padding:12px 18px; border-radius:12px; cursor:pointer;">ENTRAR A LA WEB</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Navbar Superior -->
     <header class="navbar">
         <div class="logo-container">
@@ -525,6 +594,7 @@
         </div>
         <nav class="nav-links">
             <a href="#inicio" class="nav-link active">Inicio</a>
+            <a href="#tutorial" class="nav-link">¿Cómo Usar?</a>
             <a href="#servicios" class="nav-link">Servicios & Precios</a>
             <a href="#testimonios" class="nav-link">Testimonios</a>
         </nav>
@@ -546,7 +616,7 @@
                 </p>
                 <div class="hero-actions">
                     <a href="#servicios" class="btn-hero-primary">⚡ Ver Servicios y Precios</a>
-                    <a href="#" class="btn-hero-secondary" onclick="document.getElementById('boton-whatsapp').click();">💬 Chat Directo WhatsApp</a>
+                    <button class="btn-hero-tutorial" onclick="document.getElementById('tutorial').scrollIntoView();">🎬 Ver Video Explicativo</button>
                 </div>
             </div>
 
@@ -583,6 +653,16 @@
             <div class="feature-card" onclick="document.getElementById('testimonios').scrollIntoView();">
                 <div class="feature-icon">☁️</div>
                 <div class="feature-text">BASE DE DATOS EN NUBE LOCAL</div>
+            </div>
+        </section>
+
+        <!-- Módulo Video Explicativo para Nuevos Usuarios -->
+        <section class="video-section" id="tutorial">
+            <h2>🎬 ¿ERES NUEVO? MIRA CÓMO FUNCIONA NUESTRA WEB</h2>
+            <p>En este video te explicamos en menos de 1 minuto cómo calcular tu servicio y solicitar tu cupo por WhatsApp.</p>
+            <div class="video-wrapper">
+                <!-- Puedes cambiar el src por tu video explicativo de YouTube si tienes uno propio -->
+                <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Tutorial Rucoy Share" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -739,6 +819,14 @@
     </footer>
 
     <script>
+        function cerrarBienvenida() {
+            document.getElementById('modalBienvenida').style.display = 'none';
+        }
+        function cerrarBienvenidaIrVideo() {
+            cerrarBienvenida();
+            document.getElementById('tutorial').scrollIntoView();
+        }
+
         function seleccionarClaseRapida(clase) {
             document.getElementById('clase').value = clase;
             calcularTotal();
@@ -833,6 +921,7 @@
             document.querySelector(".caja-referencias").style.display = "none";
             document.querySelector(".hero-banner").style.display = "none";
             document.querySelector(".features-grid").style.display = "none";
+            document.querySelector(".video-section").style.display = "none";
             document.getElementById("vista-seguimiento").style.display = "block";
             document.getElementById("cliente-nombre").innerText = "Cliente: " + decodeURIComponent(params.get('n'));
             let r = params.get('r') || "Novato", c = params.get('c') || "#aaa", i = params.get('i') || "👶";
@@ -849,21 +938,13 @@
             }, 1000);
         }
 
-        function generarLink() {
-            let n = document.getElementById("admin-nombre").value, h = parseInt(document.getElementById("admin-horas").value);
-            let f = new Date().getTime() + (h * 3600000);
-            window.get(window.ref(window.db, 'clientes')).then((snap) => {
-                let rangoData = { rango: "Novato", color: "#aaa", icono: "👶" };
-                snap.forEach(c => {
-                    if(c.val().nombre.toLowerCase() === n.toLowerCase()) {
-                        rangoData = obtenerRango(c.val().totalHoras || 0);
-                    }
-                });
-                document.getElementById("link-generado").innerText = window.location.href.split('?')[0] + `?n=${encodeURIComponent(n)}&h=${h}&f=${f}&r=${rangoData.rango}&c=${encodeURIComponent(rangoData.color)}&i=${encodeURIComponent(rangoData.icono)}`;
-            });
-        }
-
-        window.onload = () => { calcularTotal(); };
+        window.onload = () => {
+            calcularTotal();
+            // Muestra el modal de bienvenida al cargar si no es un link de seguimiento
+            if(!params.has('n')) {
+                document.getElementById('modalBienvenida').style.display = 'flex';
+            }
+        };
     </script>
 </body>
 </html>
